@@ -5,6 +5,8 @@ public class Main {
     public static void main(String[] args) {
         final String Type = args[0];
         int count = Integer.parseInt(args[1]);
+
+        
         Drinks.count = count;
 
 
