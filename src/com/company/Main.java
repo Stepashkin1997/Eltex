@@ -20,7 +20,7 @@ public class Main {
                 break;
             }
             default: {
-                System.err.println("Wrong object name");
+                System.err.println("Wrong object name");//выод ошибки
                 return;
             }
         }
