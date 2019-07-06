@@ -1,16 +1,31 @@
 package com.company;
 
-import java.time.LocalDate;
 import java.util.Date;
 
 /*класс заказ*/
 public class Order {
     private StringBuilder status;//статус заказа
-    private LocalDate ordertime;//время покупки
+    private Date ordertime;//время покупки
     private Date waitingtime;//время ожидаия
+    private ShoppingCart cart;//Агрегация ссылка на ShoppingCart
+    private Credentials credentials;//Агрегация ссылка на Credentials
 
-    public Order(Date waitingtime) {
+    public Order(Date waitingtime, ShoppingCart cart, Credentials credentials) {
         this.waitingtime = waitingtime;
-        ordertime= LocalDate.now();
+        this.cart = cart;
+        this.credentials = credentials;
+        ordertime=new Date();
+    }
+
+    public StringBuilder getStatus() {
+        return status;
+    }
+
+    public Date getOrdertime() {
+        return ordertime;
+    }
+
+    public Date getWaitingtime() {
+        return waitingtime;
     }
 }
