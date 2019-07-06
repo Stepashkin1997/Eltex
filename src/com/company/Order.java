@@ -3,13 +3,11 @@ package com.company;
 import java.time.LocalDate;
 import java.util.Date;
 
+/*класс заказ*/
 public class Order {
-    /*7. Добавить для класса «заказ» поля «время создания» и «время ожидания».
-Время создания устанавливается в момент оформления покупки.
-Время ожидания – время, через которое заказ должен исчезнуть (должен быть обработан), считая от времени создания.*/
-    private StringBuilder status;
-    private LocalDate ordertime;
-    private Date waitingtime;
+    private StringBuilder status;//статус заказа
+    private LocalDate ordertime;//время покупки
+    private Date waitingtime;//время ожидаия
 
     public Order(Date waitingtime) {
         this.waitingtime = waitingtime;

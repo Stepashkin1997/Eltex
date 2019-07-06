@@ -26,6 +26,10 @@ public abstract class Drinks implements ICrudAction {
         count++;
     }
 
+    public UUID getID() {
+        return ID;
+    }
+
     /*заполнение объекта случайными значениями и инкремент счётчика*/
     @Override
     public void create() {

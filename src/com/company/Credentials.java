@@ -2,6 +2,7 @@ package com.company;
 
 import java.util.UUID;
 
+/*класс для хранения и обработки персональных данных пользователей*/
 public class Credentials {
     private UUID id;
     private StringBuilder name;
