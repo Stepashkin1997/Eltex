@@ -27,7 +27,7 @@ public class Orders {
     /*обход коллекции и удаление всех объектов, время ожидания которых истекло и статус «обработан»*/
     public void clear() {
         for (var item : list) {
-            if (item.getWaitingtime().before(new Date()) || item.getStatus().toString().equals("Done")) {
+            if ((item.getWaitingtime().getTime() + item.getOrdertime().getTime()) <= new Date().getTime() && item.getStatus().toString().equals("Done")) {
                 list.remove(item);
             }
         }

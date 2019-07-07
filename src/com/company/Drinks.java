@@ -1,5 +1,6 @@
 package com.company;
 
+import java.util.HashSet;
 import java.util.Scanner;
 import java.util.UUID;
 
@@ -9,6 +10,7 @@ public abstract class Drinks implements ICrudAction {
     private double Coast;//Цена
     private StringBuilder Company;//Фирма поставщик
     private StringBuilder Developer;//Страна производитель
+    static HashSet<UUID> setId= new HashSet<>();
 
     static int count = 0;//счетчик объектов
 
@@ -24,6 +26,12 @@ public abstract class Drinks implements ICrudAction {
         Company = company;
         Developer = developer;
         count++;
+
+        boolean check=false;
+        for (; check != true;) {
+            this.ID = UUID.randomUUID();
+            check = setId.add(ID);
+        }
     }
 
     public UUID getID() {
