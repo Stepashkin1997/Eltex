@@ -4,11 +4,11 @@ import java.util.Scanner;
 import java.util.UUID;
 
 public abstract class Drinks implements ICrudAction {
-    private UUID ID;//ID товара
-    private StringBuilder Name;//Название
-    private double Coast;//Цена
-    private StringBuilder Company;//Фирма поставщик
-    private StringBuilder Developer;//Страна производитель
+    private UUID id;//id товара
+    private StringBuilder name;//Название
+    private double coast;//Цена
+    private StringBuilder company;//Фирма поставщик
+    private StringBuilder developer;//Страна производитель
 
     static int count = 0;//счетчик объектов
 
@@ -18,44 +18,44 @@ public abstract class Drinks implements ICrudAction {
 
     /*перегруженный конструктор*/
     public Drinks(StringBuilder name, double coast, StringBuilder company, StringBuilder developer) {
-        this.ID = UUID.randomUUID();
-        Name = name;
-        Coast = coast;
-        Company = company;
-        Developer = developer;
+        this.id = UUID.randomUUID();
+        this.name = name;
+        this.coast = coast;
+        this.company = company;
+        this.developer = developer;
         count++;
     }
 
     /*заполнение объекта случайными значениями и инкремент счётчика*/
     @Override
     public void create() {
-        this.ID = UUID.randomUUID();
-        Name = null;
-        Coast = Math.random();
-        Company = null;
-        Developer = null;
+        this.id = UUID.randomUUID();
+        name = null;
+        coast = Math.random();
+        company = null;
+        developer = null;
         count++;
     }
 
     /*принудительное зануление данных в объекте и декремент счетчика*/
     @Override
     public void delete() {
-        this.ID = null;
-        Name = null;
-        Coast = 0;
-        Company = null;
-        Developer = null;
+        this.id = null;
+        name = null;
+        coast = 0;
+        company = null;
+        developer = null;
         count--;
     }
 
     /*вывод данных на экран*/
     @Override
     public void read() {
-        System.out.println("ID: " + ID);
-        System.out.println("Name: " + Name);
-        System.out.println("Coast: " + Coast);
-        System.out.println("Company: " + Company);
-        System.out.println("Developer: " + Developer);
+        System.out.println("id: " + id);
+        System.out.println("name: " + name);
+        System.out.println("coast: " + coast);
+        System.out.println("company: " + company);
+        System.out.println("developer: " + developer);
     }
 
     /*ввод данных с клавиатуры*/
@@ -64,15 +64,15 @@ public abstract class Drinks implements ICrudAction {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Введите название:");
-        Name = new StringBuilder(scanner.nextLine());
+        name = new StringBuilder(scanner.nextLine());
 
         System.out.println("Введите ценник:");
-        Coast = Double.parseDouble(scanner.nextLine());
+        coast = Double.parseDouble(scanner.nextLine());
 
         System.out.println("Введите название компании:");
-        Company = new StringBuilder(scanner.nextLine());
+        company = new StringBuilder(scanner.nextLine());
 
         System.out.println("Введите название страны производителя:");
-        Developer = new StringBuilder(scanner.nextLine());
+        developer = new StringBuilder(scanner.nextLine());
     }
 }

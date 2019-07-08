@@ -3,13 +3,13 @@ package ru.eltex.app.java;
 public class Main {
 
     public static void main(String[] args) {
-        final String Type = args[0];
+        final String TYPE = args[0];
         int count = Integer.parseInt(args[1]);
 
 
         ICrudAction action;
 
-        switch (Type) {
+        switch (TYPE) {
             case "Coffee": {
                 action = new Coffee();//создание объекта типа Coffee
                 break;
