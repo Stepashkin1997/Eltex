@@ -6,9 +6,6 @@ public class Main {
         final String Type = args[0];
         int count = Integer.parseInt(args[1]);
 
-        
-        Drinks.count = count;
-
 
         ICrudAction action;
 
@@ -27,8 +24,12 @@ public class Main {
             }
         }
 
+        for (int i=0;i<count;i++){
+            action.create();
+        }
 
-        action.create();
+        System.out.println(Drinks.count);
+
         action.update();
         action.read();
         action.delete();
