@@ -1,10 +1,11 @@
-package com.company;
+package ru.eltex.app.java;
 
 public class Main {
 
     public static void main(String[] args) {
         final String Type;
         int count;
+
         try {
             Type = args[0];
             count = Integer.parseInt(args[1]);
