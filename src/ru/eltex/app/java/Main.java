@@ -3,9 +3,17 @@ package ru.eltex.app.java;
 public class Main {
 
     public static void main(String[] args) {
-        final String TYPE = args[0];
-        int count = Integer.parseInt(args[1]);
+        String TYPE="";
+        int count=0;
 
+        try {
+            TYPE = args[1];
+            count = Integer.parseInt(args[0]);
+        }
+        catch (Exception ex){
+            System.err.println("ERROR");
+            return;
+        }
 
         ICrudAction action = null;
         for (int i=0;i<count;i++) {
