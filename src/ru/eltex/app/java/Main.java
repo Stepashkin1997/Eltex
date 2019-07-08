@@ -3,41 +3,43 @@ package ru.eltex.app.java;
 public class Main {
 
     public static void main(String[] args) {
-        String TYPE="";
-        int count=0;
+        final String Type;
+        int count;
 
         try {
-            TYPE = args[1];
-            count = Integer.parseInt(args[0]);
-        }
-        catch (Exception ex){
+            Type = args[0];
+            count = Integer.parseInt(args[1]);
+        } catch (Exception ex) {
             System.err.println("ERROR");
             return;
         }
 
-        ICrudAction action = null;
-        for (int i=0;i<count;i++) {
+        ICrudAction action;
 
-            switch (TYPE) {
-                case "Coffee": {
-                    action = new Coffee();//создание объекта типа Coffee
-                    break;
-                }
-                case "Tea": {
-                    action = new Tea();//создание объекта типа Tea
-                    break;
-                }
-                default: {
-                    System.err.println("Wrong object name");//выод ошибки
-                    return;
-                }
+        switch (Type) {
+            case "Coffee": {
+                action = new Coffee();//создание объекта типа Coffee
+                break;
             }
-            action.create();
-            System.out.println(Drinks.count);
-            action.update();
-            action.read();
-            action.delete();
-            action.read();
+            case "Tea": {
+                action = new Tea();//создание объекта типа Tea
+                break;
+            }
+            default: {
+                System.err.println("Wrong object name");//выод ошибки
+                return;
+            }
         }
+
+        for (int i = 0; i < count; i++) {
+            action.create();
+        }
+
+        System.out.println(Drinks.count);
+
+        action.update();
+        action.read();
+        action.delete();
+        action.read();
     }
 }
