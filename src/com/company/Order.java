@@ -1,7 +1,6 @@
 package com.company;
 
 import java.util.Date;
-import java.util.HashMap;
 
 /*класс заказ*/
 public class Order {
@@ -15,7 +14,7 @@ public class Order {
         this.waitingtime = waitingtime;
         this.cart = cart;
         this.credentials = credentials;
-        ordertime = new Date();
+        this.ordertime = new Date();
     }
 
     public StringBuilder getStatus() {
@@ -28,5 +27,11 @@ public class Order {
 
     public Date getWaitingtime() {
         return waitingtime;
+    }
+
+    public void show(){
+        System.out.println("ID: " + status);
+        System.out.println("Name: " + ordertime);
+        System.out.println("Coast: " + waitingtime);
     }
 }

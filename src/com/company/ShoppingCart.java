@@ -25,7 +25,7 @@ public class ShoppingCart {
     /*функция вывода*/
     public void show(UUID id) {
         for (var item : list) {
-            System.out.println(item);
+            item.read();
         }
     }
 

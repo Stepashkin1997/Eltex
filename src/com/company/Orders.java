@@ -17,7 +17,7 @@ public class Orders {
     /*функция вывода*/
     public void show() {
         for (var item : list) {
-            System.out.println(item);
+            item.show();
         }
     }
 
@@ -33,6 +33,7 @@ public class Orders {
         for (var item : list) {
             if ((item.getWaitingtime().getTime() + item.getOrdertime().getTime()) <= new Date().getTime() && item.getStatus().toString().equals("Done")) {
                 list.remove(item);
+                createTime.remove(item);
             }
         }
     }
