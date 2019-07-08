@@ -33,7 +33,7 @@ public class ShoppingCart {
     public Drinks search(UUID id) {
         for (var item : list) {
             System.out.println(item);
-            if (item.getID().equals(id))
+            if (item.getId().equals(id))
                 return item;
         }
         return null;
