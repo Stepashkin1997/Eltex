@@ -1,4 +1,4 @@
-package com.company;
+package ru.eltex.app.java;
 
 public class Main {
 
