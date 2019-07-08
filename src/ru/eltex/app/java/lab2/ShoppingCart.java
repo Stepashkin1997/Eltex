@@ -6,7 +6,7 @@ import java.util.UUID;
 
 /*класс коллекция корзина*/
 public class ShoppingCart {
-    private ArrayList<Drinks> list;
+    private ArrayList<Drinks> list;//Коллекция для хранения объектов в классе «корзина»
 
     public ShoppingCart() {
         list = new ArrayList();

@@ -6,8 +6,8 @@ import java.util.LinkedList;
 
 /*Класс коллекция заказы*/
 public class Orders {
-    private LinkedList<Order> list;
-    private HashMap<Order, Date> createTime;
+    LinkedList<Order> list;//Коллекция для хранения объектов в классе «заказы»
+    private HashMap<Order, Date> createTime;//Коллекция для хранения объектов по времени создания
 
     public Orders() {
         list = new LinkedList();
@@ -16,7 +16,7 @@ public class Orders {
 
     /*функция вывода*/
     public void show() {
-        for (var item : list) {
+        for (var item : createTime.keySet()) {
             item.show();
         }
     }
@@ -30,11 +30,15 @@ public class Orders {
 
     /*обход коллекции и удаление всех объектов, время ожидания которых истекло и статус «обработан»*/
     public void clear() {
-        for (var item : list) {
-            if ((item.getWaitingtime().getTime() + item.getOrdertime().getTime()) <= new Date().getTime() && item.getStatus().toString().equals("Done")) {
+        for (var item : createTime.keySet()) {
+            /*System.out.println("время: "+item.getWaitingtime().getTime() + item.getOrdertime().getTime());
+            System.out.println(new Date().getTime());*/
+            if ((item.getWaitingtime().getTime() + item.getOrdertime().getTime()) <= new Date().getTime() && item.getStatus().equals("Done")) {
                 list.remove(item);
                 createTime.remove(item);
             }
         }
     }
+
+
 }

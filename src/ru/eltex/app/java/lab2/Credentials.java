@@ -4,11 +4,11 @@ import java.util.UUID;
 
 /*класс для хранения и обработки персональных данных пользователей*/
 public class Credentials {
-    private UUID id;
-    private StringBuilder name;
-    private StringBuilder surname;
-    private StringBuilder thirdname;
-    private StringBuilder email;
+    private UUID id;//ID
+    private StringBuilder name;//Имя
+    private StringBuilder surname;//Фамилия
+    private StringBuilder thirdname;//Отчетсво
+    private StringBuilder email;//Почта
 
     public Credentials(StringBuilder name, StringBuilder surname, StringBuilder thirdname, StringBuilder email) {
         this.id = UUID.randomUUID();
@@ -16,6 +16,14 @@ public class Credentials {
         this.surname = surname;
         this.thirdname = thirdname;
         this.email = email;
+    }
+
+    public Credentials(String name, String surname, String thirdname, String email) {
+        this.id = UUID.randomUUID();
+        this.name = new StringBuilder(name);
+        this.surname = new StringBuilder(surname);
+        this.thirdname = new StringBuilder(thirdname);
+        this.email = new StringBuilder(email);
     }
 
     public UUID getId() {
@@ -36,5 +44,21 @@ public class Credentials {
 
     public StringBuilder getEmail() {
         return email;
+    }
+
+    public void setName(StringBuilder name) {
+        this.name = name;
+    }
+
+    public void setSurname(StringBuilder surname) {
+        this.surname = surname;
+    }
+
+    public void setThirdname(StringBuilder thirdname) {
+        this.thirdname = thirdname;
+    }
+
+    public void setEmail(StringBuilder email) {
+        this.email = email;
     }
 }

@@ -1,5 +1,6 @@
 package ru.eltex.app.java.lab2;
 
+import java.util.HashSet;
 import java.util.Scanner;
 import java.util.UUID;
 
@@ -10,6 +11,7 @@ public abstract class Drinks implements ICrudAction {
     private StringBuilder company;//Фирма поставщик
     private StringBuilder developer;//Страна производитель
 
+    static HashSet<UUID> setId= new HashSet<>();//Коллекция для хранения и поиска уникальных идентификаторов
     static int count = 0;//счетчик объектов
 
     /*конструктор по умолчанию*/
@@ -24,6 +26,16 @@ public abstract class Drinks implements ICrudAction {
         this.company = company;
         this.developer = developer;
         count++;
+
+        boolean check=false;
+        for (; check != true;) {
+            this.id = UUID.randomUUID();
+            check = setId.add(id);
+        }
+    }
+
+    public UUID getId() {
+        return id;
     }
 
     /*заполнение объекта случайными значениями и инкремент счётчика*/
@@ -34,11 +46,6 @@ public abstract class Drinks implements ICrudAction {
         coast = Math.random();
         company = null;
         developer = null;
-        count++;
-    }
-
-    public UUID getId() {
-        return id;
     }
 
     /*принудительное зануление данных в объекте и декремент счетчика*/
