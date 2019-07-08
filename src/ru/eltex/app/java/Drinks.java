@@ -37,6 +37,10 @@ public abstract class Drinks implements ICrudAction {
         count++;
     }
 
+    public UUID getId() {
+        return id;
+    }
+
     /*принудительное зануление данных в объекте и декремент счетчика*/
     @Override
     public void delete() {
