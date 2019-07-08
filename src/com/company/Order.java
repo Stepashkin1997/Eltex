@@ -10,14 +10,12 @@ public class Order {
     private Date waitingtime;//время ожидаия
     private ShoppingCart cart;//Агрегация ссылка на ShoppingCart
     private Credentials credentials;//Агрегация ссылка на Credentials
-    static HashMap<Order, Date> createTime = new HashMap();
 
     public Order(Date waitingtime, ShoppingCart cart, Credentials credentials) {
         this.waitingtime = waitingtime;
         this.cart = cart;
         this.credentials = credentials;
         ordertime = new Date();
-        createTime.put(this,ordertime);
     }
 
     public StringBuilder getStatus() {

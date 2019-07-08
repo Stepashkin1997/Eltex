@@ -1,14 +1,17 @@
 package com.company;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedList;
 
 /*Класс коллекция заказы*/
 public class Orders {
     private LinkedList<Order> list;
+    private HashMap<Order, Date> createTime;
 
     public Orders() {
         list = new LinkedList();
+        createTime = new HashMap();
     }
 
     /*функция вывода*/
@@ -22,6 +25,7 @@ public class Orders {
     public void purchase(Date waitingtime, ShoppingCart cart, Credentials credentials) {
         Order order = new Order(waitingtime, cart, credentials);
         list.add(order);
+        createTime.put(order, new Date());
     }
 
     /*обход коллекции и удаление всех объектов, время ожидания которых истекло и статус «обработан»*/
