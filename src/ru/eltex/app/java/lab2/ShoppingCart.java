@@ -23,7 +23,7 @@ public class ShoppingCart {
     }
 
     /*функция вывода*/
-    public void show(UUID id) {
+    public void show() {
         for (var item : list) {
             item.read();
         }
@@ -32,7 +32,6 @@ public class ShoppingCart {
     /*функция поиска по индефикатору*/
     public Drinks search(UUID id) {
         for (var item : list) {
-            System.out.println(item);
             if (item.getId().equals(id))
                 return item;
         }

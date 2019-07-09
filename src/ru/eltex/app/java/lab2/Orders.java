@@ -17,7 +17,8 @@ public class Orders {
     /*функция вывода*/
     public void show() {
         for (var item : createTime.keySet()) {
-            item.show();
+            System.out.println("Заказ:");
+            item.print();
         }
     }
 
@@ -31,9 +32,7 @@ public class Orders {
     /*обход коллекции и удаление всех объектов, время ожидания которых истекло и статус «обработан»*/
     public void clear() {
         for (var item : createTime.keySet()) {
-            /*System.out.println("время: "+item.getWaitingtime().getTime() + item.getOrdertime().getTime());
-            System.out.println(new Date().getTime());*/
-            if ((item.getWaitingtime().getTime() + item.getOrdertime().getTime()) <= new Date().getTime() && item.getStatus().equals("Done")) {
+            if ((item.diff + item.getOrdertime().getTime()) <= new Date().getTime() && item.getStatus().equals("Done")) {
                 list.remove(item);
                 createTime.remove(item);
             }

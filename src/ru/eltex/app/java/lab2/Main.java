@@ -1,10 +1,7 @@
 package ru.eltex.app.java.lab2;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Scanner;
 
 public class Main {
 
@@ -44,35 +41,48 @@ public class Main {
                     return;
                 }
             }
-            drinks.update();
+            try {
+                drinks.update();
+            } catch (Exception e) {
+                System.err.println("Wrong entering");
+                return;
+            }
             cart.add(drinks);//Добавление товара в корзину
         }
 
-        /*установка даты ожидания заказа*/
-        SimpleDateFormat sdf = new SimpleDateFormat("ss");
-        Date date = null;
-        try {
-            date = sdf.parse("4");
-        } catch (ParseException e) {
-            e.printStackTrace();
-            return;
-        }
+        System.out.println("Поиск по индефикатору в корзине " + drinks.getId() + ":");
+        cart.search(drinks.getId()).read();//поиск по индефикатору
 
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        System.out.println();
+        System.out.println("Показ корзины: ");
+        cart.show();//показ всей корзины
 
-        orders.purchase(date, cart, credentials);
-        orders.show();
+/*        System.out.println();
+        System.out.println("Удаление из корзины: ");
+        cart.delete(drinks);//удаление*/
+
+        System.out.println();
+        System.out.println("Показ корзины: ");
+        cart.show();//показ всей корзины
+
+
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new Date());
+        /*        cal.add(Calendar.DATE, 1);*/
+
+        System.out.println();
+        System.out.println("Показ списка заказов:");
+        orders.purchase(cal.getTime(), cart, credentials);//оформить покупку
+        orders.show();//показать
 
         for (var item : orders.list) {
             item.setStatus("Done");
         }
 
-        orders.clear();
-        orders.show();
+        System.out.println();
+        System.out.println("Отчистка и показ:");
+        orders.clear();//отчистить заказы от готовых
+        orders.show();//показать
 
     }
 }

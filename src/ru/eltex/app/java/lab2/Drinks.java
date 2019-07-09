@@ -1,5 +1,6 @@
 package ru.eltex.app.java.lab2;
 
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.UUID;
@@ -16,11 +17,21 @@ public abstract class Drinks implements ICrudAction {
 
     /*конструктор по умолчанию*/
     public Drinks() {
+        this.name = new StringBuilder("");
+        this.coast = 0;
+        this.company = new StringBuilder("");
+        this.developer = new StringBuilder("");
+        count++;
+
+        boolean check=false;
+        for (; check != true;) {
+            this.id = UUID.randomUUID();
+            check = setId.add(id);
+        }
     }
 
     /*перегруженный конструктор*/
     public Drinks(StringBuilder name, double coast, StringBuilder company, StringBuilder developer) {
-        this.id = UUID.randomUUID();
         this.name = name;
         this.coast = coast;
         this.company = company;
@@ -71,7 +82,7 @@ public abstract class Drinks implements ICrudAction {
 
     /*ввод данных с клавиатуры*/
     @Override
-    public void update() {
+    public void update() throws IOException {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Введите название:");

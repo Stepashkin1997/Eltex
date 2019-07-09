@@ -1,5 +1,6 @@
 package ru.eltex.app.java.lab2;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Coffee extends Drinks {
@@ -31,7 +32,7 @@ public class Coffee extends Drinks {
 
     /*ввод данных с клавиатуры*/
     @Override
-    public void update() {
+    public void update() throws IOException {
         super.update();
         System.out.println("Введите название вида кофейных зёрен:");
         Scanner scanner = new Scanner(System.in);
