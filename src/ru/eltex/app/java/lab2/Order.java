@@ -6,16 +6,16 @@ import java.sql.Date;
 public class Order {
     private OrderStatus status;//статус заказа
     private Date ordertime;//время покупки
-    long diff;//время ожидания
+    private long diff;//время ожидания
     private ShoppingCart cart;//Агрегация ссылка на ShoppingCart
     private Credentials credentials;//Агрегация ссылка на Credentials
 
-    public Order(Date waitingtime, ShoppingCart cart, Credentials credentials) {
+    public Order(ShoppingCart cart, Credentials credentials) {
         this.status = OrderStatus.WAITING;
         this.cart = cart;
         this.credentials = credentials;
         this.ordertime = new Date(System.currentTimeMillis());
-        diff = waitingtime.getTime() - ordertime.getTime();
+        diff = (long) (Math.random() * 10);
     }
 
     public OrderStatus getStatus() {
@@ -28,6 +28,10 @@ public class Order {
 
     public Date getOrdertime() {
         return ordertime;
+    }
+
+    public long getDiff() {
+        return diff;
     }
 
     public ShoppingCart getCart() {

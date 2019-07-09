@@ -23,8 +23,8 @@ public class Orders {
     }
 
     /*оформит покупку*/
-    public void purchase(Date waitingtime, ShoppingCart cart, Credentials credentials) {
-        Order order = new Order(waitingtime, cart, credentials);
+    public void purchase(ShoppingCart cart, Credentials credentials) {
+        Order order = new Order(cart, credentials);
         list.add(order);
         createTime.put(order, new Date(System.currentTimeMillis()));
     }
@@ -32,7 +32,8 @@ public class Orders {
     /*обход коллекции и удаление всех объектов, время ожидания которых истекло и статус «обработан»*/
     public void clear() {
         for (var item : createTime.keySet()) {
-            if ((item.diff + item.getOrdertime().getTime()) <= new Date(System.currentTimeMillis()).getTime() && item.getStatus() == OrderStatus.DONE) {
+            if ((item.getDiff() + item.getOrdertime().getTime()) <=
+                    new Date(System.currentTimeMillis()).getTime() && item.getStatus() == OrderStatus.DONE) {
                 list.remove(item);
                 createTime.remove(item);
             }

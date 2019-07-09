@@ -1,14 +1,15 @@
 package ru.eltex.app.java.lab2;
 
-import java.util.Calendar;
-import java.util.Date;
-
 public class Main {
 
     public static void main(String[] args) {
         final String Type;//Тип объекта
         int count;//Число объектов
         Drinks drinks = null;
+        /*Создание пользователя*/
+        Credentials credentials = new Credentials("Lol", "Kekovich", "Azaza", "123@ololo.ua");
+        ShoppingCart cart = new ShoppingCart();//Создание корзины
+        Orders orders = new Orders();//Список заказов
 
         try {
             count = Integer.parseInt(args[0]);
@@ -17,12 +18,7 @@ public class Main {
             System.err.println("ERROR");
             return;
         }
-
-        /*Создание пользователя*/
-        Credentials credentials = new Credentials("Lol", "Kekovich", "Azaza", "123@ololo.ua");
-        ShoppingCart cart = new ShoppingCart();//Создание корзины
-        Orders orders = new Orders();//Список заказов
-
+        
         for (int i = 0; i < count; i++) {
             switch (Type) {
 
@@ -50,6 +46,7 @@ public class Main {
             cart.add(drinks);//Добавление товара в корзину
         }
 
+
         System.out.println("Поиск по индефикатору в корзине " + drinks.getId() + ":");
         cart.search(drinks.getId()).read();//поиск по индефикатору
 
@@ -57,7 +54,7 @@ public class Main {
         System.out.println("Показ корзины: ");
         cart.show();//показ всей корзины
 
-/*        System.out.println();
+/*      System.out.println();
         System.out.println("Удаление из корзины: ");
         cart.delete(drinks);//удаление*/
 
@@ -65,14 +62,9 @@ public class Main {
         System.out.println("Показ корзины: ");
         cart.show();//показ всей корзины
 
-
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(new Date());
-        /*        cal.add(Calendar.DATE, 1);*/
-
         System.out.println();
         System.out.println("Показ списка заказов:");
-        orders.purchase(cal.getTime(), cart, credentials);//оформить покупку
+        orders.purchase(cart, credentials);//оформить покупку
         orders.show();//показать
 
         for (var item : orders.list) {
