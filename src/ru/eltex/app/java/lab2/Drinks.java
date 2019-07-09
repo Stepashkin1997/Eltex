@@ -16,6 +16,7 @@ public abstract class Drinks implements ICrudAction {
 
     /*конструктор по умолчанию*/
     public Drinks() {
+        this.id = UUID.randomUUID();
         this.name = new StringBuilder("");
         this.coast = 0;
         this.company = new StringBuilder("");
@@ -25,6 +26,7 @@ public abstract class Drinks implements ICrudAction {
 
     /*перегруженный конструктор*/
     public Drinks(StringBuilder name, double coast, StringBuilder company, StringBuilder developer) {
+        this.id = UUID.randomUUID();
         this.name = name;
         this.coast = coast;
         this.company = company;

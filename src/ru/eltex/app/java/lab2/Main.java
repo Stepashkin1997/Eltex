@@ -3,78 +3,51 @@ package ru.eltex.app.java.lab2;
 public class Main {
 
     public static void main(String[] args) {
-        final String Type;//Тип объекта
-        int count;//Число объектов
-        Drinks drinks = null;
+
         /*Создание пользователя*/
-        Credentials credentials = new Credentials("Lol", "Kekovich", "Azaza", "123@ololo.ua");
-        ShoppingCart cart = new ShoppingCart();//Создание корзины
+        Credentials user1 = new Credentials("Lol", "Kekovich", "Azaza", "123@ololo.ua");
+        Credentials user2 = new Credentials("Kek", "Lolovich", "Azaza", "123@ololo.ua");
+        ShoppingCart cartuser1 = new ShoppingCart();//Создание корзины
+        ShoppingCart cartuser2 = new ShoppingCart();//Создание корзины
         Orders orders = new Orders();//Список заказов
 
-        try {
-            count = Integer.parseInt(args[0]);
-            Type = args[1];
-        } catch (Exception ex) {
-            System.err.println("ERROR");
-            return;
-        }
+        Coffee coffee = new Coffee("A", 123, "IBM", "Eltex", "Arabic");
+        cartuser1.add(coffee);
+        cartuser1.add(new Coffee("B", 321, "IBM", "Eltex", "Arabic"));
 
-        for (int i = 0; i < count; i++) {
-            switch (Type) {
+        cartuser2.add(new Tea("C", 456, "IBM", "Eltex", "Pacet"));
+        cartuser2.add(new Tea("D", 654, "IBM", "Eltex", "Pacet"));
 
-                case "Tea": {
-                    drinks = new Tea();
-                    break;
-                }
+        orders.purchase(cartuser1, user1);
+        orders.purchase(cartuser2, user2);
 
-                case "Coffee": {
-                    drinks = new Coffee();
-                    break;
-                }
-
-                default: {
-                    System.err.println("ERROR");
-                    return;
-                }
-            }
-            try {
-                drinks.update();
-            } catch (Exception e) {
-                System.err.println("Wrong entering");
-                return;
-            }
-            cart.add(drinks);//Добавление товара в корзину
-        }
-
-
-        System.out.println("Поиск по индефикатору в корзине " + drinks.getId() + ":");
-        System.out.println(cart.search(drinks.getId()));//поиск по индефикатору
+        /*Поиск в корзине*/
+        System.out.println();
+        System.out.println("Поиск в корзине: ");
+        System.out.println("есть ли id=" + coffee.getId() + " в корзине: " + cartuser1.search(coffee.getId()));
 
         /*Показ корзины*/
         System.out.println();
         System.out.println("Показ корзины: ");
-        cart.show();//показ всей корзины
+        cartuser1.show();//показ всей корзины
 
-/*      //Удаление из корзины
+        //Удаление из корзины
         System.out.println();
         System.out.println("Удаление из корзины: ");
-        cart.delete(drinks);//удаление*/
+        cartuser1.delete(coffee);//удаление
 
         /*Показ корзины*/
         System.out.println();
         System.out.println("Показ корзины: ");
-        cart.show();//показ всей корзины
+        cartuser1.show();//показ всей корзины
 
         /*Показ списка заказов*/
         System.out.println();
         System.out.println("Показ списка заказов:");
-        orders.purchase(cart, credentials);//оформить покупку
         orders.show();//показать
 
         /*Все заказы в orders готовы*/
-        for (var item : orders.list) {
-            item.setStatus(OrderStatus.DONE);
-        }
+        orders.setDoneAll();
 
         /*Отчистка и показ*/
         System.out.println();
