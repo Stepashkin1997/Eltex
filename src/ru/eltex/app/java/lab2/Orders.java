@@ -26,7 +26,7 @@ public class Orders {
     public void purchase(ShoppingCart cart, Credentials credentials) {
         Order order = new Order(cart, credentials);
         list.add(order);
-        createTime.put(order, new Date(System.currentTimeMillis()));
+        createTime.put(order, order.getOrdertime());
     }
 
     /*обход коллекции и удаление всех объектов, время ожидания которых истекло и статус «обработан»*/

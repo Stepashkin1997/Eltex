@@ -48,7 +48,7 @@ public class Main {
 
 
         System.out.println("Поиск по индефикатору в корзине " + drinks.getId() + ":");
-        cart.search(drinks.getId()).read();//поиск по индефикатору
+        System.out.println(cart.search(drinks.getId()));//поиск по индефикатору
 
         /*Показ корзины*/
         System.out.println();

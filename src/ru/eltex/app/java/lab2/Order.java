@@ -15,7 +15,7 @@ public class Order {
         this.cart = cart;
         this.credentials = credentials;
         this.ordertime = new Date(System.currentTimeMillis());
-        diff = (long) (Math.random() * 10);
+        diff = (long) (Math.random() * 1900000000);
     }
 
     public OrderStatus getStatus() {
@@ -46,7 +46,7 @@ public class Order {
     public void print() {
         System.out.println("Status: " + status);
         System.out.println("Order time: " + ordertime);
-        System.out.println("Waiting time: " + new Date(ordertime.getTime() + diff));
+        System.out.println("Waiting time: " + diff);
         System.out.println("Список товаров в заказе:");
         cart.show();
         System.out.println("Данные о пользователе:");
