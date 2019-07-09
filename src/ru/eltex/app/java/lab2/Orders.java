@@ -1,6 +1,6 @@
 package ru.eltex.app.java.lab2;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -26,13 +26,13 @@ public class Orders {
     public void purchase(Date waitingtime, ShoppingCart cart, Credentials credentials) {
         Order order = new Order(waitingtime, cart, credentials);
         list.add(order);
-        createTime.put(order, new Date());
+        createTime.put(order, new Date(System.currentTimeMillis()));
     }
 
     /*обход коллекции и удаление всех объектов, время ожидания которых истекло и статус «обработан»*/
     public void clear() {
         for (var item : createTime.keySet()) {
-            if ((item.diff + item.getOrdertime().getTime()) <= new Date().getTime() && item.getStatus().equals("Done")) {
+            if ((item.diff + item.getOrdertime().getTime()) <= new Date(System.currentTimeMillis()).getTime() && item.getStatus() == OrderStatus.DONE) {
                 list.remove(item);
                 createTime.remove(item);
             }

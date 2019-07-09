@@ -76,7 +76,7 @@ public class Main {
         orders.show();//показать
 
         for (var item : orders.list) {
-            item.setStatus("Done");
+            item.setStatus(OrderStatus.DONE);
         }
 
         System.out.println();

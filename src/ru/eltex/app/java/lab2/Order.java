@@ -1,28 +1,28 @@
 package ru.eltex.app.java.lab2;
 
-import java.util.Date;
+import java.sql.Date;
 
 /*класс заказ*/
 public class Order {
-    private String status;//статус заказа
+    private OrderStatus status;//статус заказа
     private Date ordertime;//время покупки
     long diff;//время ожидания
     private ShoppingCart cart;//Агрегация ссылка на ShoppingCart
     private Credentials credentials;//Агрегация ссылка на Credentials
 
     public Order(Date waitingtime, ShoppingCart cart, Credentials credentials) {
-        this.status = "Performed";
+        this.status = OrderStatus.WAITING;
         this.cart = cart;
         this.credentials = credentials;
-        this.ordertime = new Date();
+        this.ordertime = new Date(System.currentTimeMillis());
         diff = waitingtime.getTime() - ordertime.getTime();
     }
 
-    public String getStatus() {
+    public OrderStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(OrderStatus status) {
         this.status = status;
     }
 
@@ -46,4 +46,6 @@ public class Order {
         System.out.println("Список товаров в заказе:");
         cart.show();
     }
+
+
 }
