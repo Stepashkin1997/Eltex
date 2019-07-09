@@ -61,4 +61,11 @@ public class Credentials {
     public void setEmail(StringBuilder email) {
         this.email = email;
     }
+
+    public void show() {
+        System.out.println("Name: " + name);
+        System.out.println("Surname: " + surname);
+        System.out.println("Thirdname: " + thirdname);
+        System.out.println("Email:" + email);
+    }
 }

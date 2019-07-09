@@ -18,7 +18,7 @@ public class Main {
             System.err.println("ERROR");
             return;
         }
-        
+
         for (int i = 0; i < count; i++) {
             switch (Type) {
 
@@ -50,27 +50,33 @@ public class Main {
         System.out.println("Поиск по индефикатору в корзине " + drinks.getId() + ":");
         cart.search(drinks.getId()).read();//поиск по индефикатору
 
+        /*Показ корзины*/
         System.out.println();
         System.out.println("Показ корзины: ");
         cart.show();//показ всей корзины
 
-/*      System.out.println();
+/*      //Удаление из корзины
+        System.out.println();
         System.out.println("Удаление из корзины: ");
         cart.delete(drinks);//удаление*/
 
+        /*Показ корзины*/
         System.out.println();
         System.out.println("Показ корзины: ");
         cart.show();//показ всей корзины
 
+        /*Показ списка заказов*/
         System.out.println();
         System.out.println("Показ списка заказов:");
         orders.purchase(cart, credentials);//оформить покупку
         orders.show();//показать
 
+        /*Все заказы в orders готовы*/
         for (var item : orders.list) {
             item.setStatus(OrderStatus.DONE);
         }
 
+        /*Отчистка и показ*/
         System.out.println();
         System.out.println("Отчистка и показ:");
         orders.clear();//отчистить заказы от готовых

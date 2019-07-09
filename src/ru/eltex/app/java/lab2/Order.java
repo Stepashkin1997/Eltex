@@ -49,6 +49,8 @@ public class Order {
         System.out.println("Waiting time: " + new Date(ordertime.getTime() + diff));
         System.out.println("Список товаров в заказе:");
         cart.show();
+        System.out.println("Данные о пользователе:");
+        credentials.show();
     }
 
 
