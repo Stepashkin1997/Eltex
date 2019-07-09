@@ -15,7 +15,7 @@ public class Order {
         this.cart = cart;
         this.credentials = credentials;
         this.ordertime = new Date(System.currentTimeMillis());
-        diff = (long) (Math.random() * 1900000000);
+        diff = (long) (Math.random() * 10);
     }
 
     public OrderStatus getStatus() {
