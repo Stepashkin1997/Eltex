@@ -6,23 +6,23 @@ import java.util.UUID;
 
 
 /*класс коллекция корзина*/
-public class ShoppingCart {
-    private ArrayList<Drinks> list;//Коллекция для хранения объектов в классе «корзина»
+public class ShoppingCart<T extends  Drinks> {
+    private ArrayList<T> list;//Коллекция для хранения объектов в классе «корзина»
     private HashSet<UUID> setId;//Коллекция для хранения и поиска уникальных идентификаторов
 
     public ShoppingCart() {
-        list = new ArrayList();
+        list = new ArrayList<>();
         setId= new HashSet<>();
     }
 
     /*метод добавления объекта из коллекции*/
-    public void add(Drinks drink) {
+    public void add(T drink) {
         list.add(drink);
         setId.add(drink.getId());
     }
 
     /*метод удаления объекта из коллекции*/
-    public void delete(Drinks drink) {
+    public void delete(T drink) {
         list.remove(drink);
         setId.remove(drink.getId());
     }
