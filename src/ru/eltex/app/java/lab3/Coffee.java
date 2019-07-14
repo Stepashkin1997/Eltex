@@ -8,6 +8,7 @@ public class Coffee extends Drinks {
 
     /*конструктор по умолчанию*/
     public Coffee() {
+        typecofee=new StringBuilder("");
     }
 
     /*перегруженный конструктор*/

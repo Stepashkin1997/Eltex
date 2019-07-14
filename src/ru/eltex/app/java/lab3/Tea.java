@@ -8,6 +8,7 @@ public class Tea extends Drinks {
 
     /*конструктор по умолчанию*/
     public Tea() {
+        typebox=new StringBuilder("");
     }
 
     /*перегруженный конструктор*/
