@@ -14,7 +14,9 @@ public abstract class Drinks implements ICrudAction {
 
     static int count = 0;//счетчик объектов
 
-    /*конструктор по умолчанию*/
+    /**
+     * Конструктор по умолчанию
+     */
     public Drinks() {
         this.id = UUID.randomUUID();
         this.name = new StringBuilder("");
@@ -24,7 +26,14 @@ public abstract class Drinks implements ICrudAction {
         count++;
     }
 
-    /*перегруженный конструктор*/
+
+    /**
+     * перегруженный конструктор
+     * @param name Название
+     * @param coast Цена
+     * @param company Фирма поставщик
+     * @param developer Страна производитель
+     */
     public Drinks(StringBuilder name, double coast, StringBuilder company, StringBuilder developer) {
         this.id = UUID.randomUUID();
         this.name = name;
@@ -38,7 +47,10 @@ public abstract class Drinks implements ICrudAction {
         return id;
     }
 
-    /*заполнение объекта случайными значениями и инкремент счётчика*/
+
+    /**
+     * Заполнение объекта случайными значениями и инкремент счётчика
+     */
     @Override
     public void create() {
         this.id = UUID.randomUUID();
@@ -48,7 +60,10 @@ public abstract class Drinks implements ICrudAction {
         developer = null;
     }
 
-    /*принудительное зануление данных в объекте и декремент счетчика*/
+
+    /**
+     * Принудительное зануление данных в объекте и декремент счетчика
+     */
     @Override
     public void delete() {
         this.id = null;
@@ -59,7 +74,9 @@ public abstract class Drinks implements ICrudAction {
         count--;
     }
 
-    /*вывод данных на экран*/
+    /**
+     * Вывод данных на экран
+     */
     @Override
     public void read() {
         System.out.println("id: " + id);
@@ -69,7 +86,11 @@ public abstract class Drinks implements ICrudAction {
         System.out.println("developer: " + developer);
     }
 
-    /*ввод данных с клавиатуры*/
+
+    /**
+     * Ввод данных с клавиатуры
+     * @throws IOException
+     */
     @Override
     public void update() throws IOException {
         Scanner scanner = new Scanner(System.in);
