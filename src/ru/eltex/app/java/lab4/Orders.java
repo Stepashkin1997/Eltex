@@ -7,7 +7,8 @@ import java.util.LinkedList;
 
 /**
  * Класс коллекция заказы
- * @param <T>
+ *
+ * @param <T> extends Order
  */
 public class Orders<T extends Order> {
     private LinkedList<T> list;//Коллекция для хранения объектов в классе «заказы»
@@ -33,7 +34,8 @@ public class Orders<T extends Order> {
 
     /**
      * Оформление покупки
-     * @param cart Корзина
+     *
+     * @param cart        Корзина
      * @param credentials Данные пользователя
      */
     public void purchase(ShoppingCart cart, Credentials credentials) {
@@ -60,11 +62,28 @@ public class Orders<T extends Order> {
     }
 
     /**
-     * Установить все в готовое
+     * Переводит ожидающие заказы в готовые
      */
-    public void setDoneAll(){
+    public void setDone() {
         for (var item : list) {
-            item.setStatus(OrderStatus.DONE);
+            if (item.getStatus() == OrderStatus.WAITING) {
+                item.setStatus(OrderStatus.DONE);
+            }
+        }
+    }
+
+    /**
+     * Удаляет готовые заказы
+     */
+    public void removeDone() {
+        var iter = createTime.keySet().iterator();
+
+        while (iter.hasNext()) {
+            var item = iter.next();
+            if (item.getStatus() == OrderStatus.DONE) {
+                iter.remove();
+                createTime.remove(item);
+            }
         }
     }
 }
