@@ -24,12 +24,23 @@ public class Orders<T extends Order> {
      * Функция вывода
      */
     public void show() {
-        for (var item : createTime.keySet()) {
+
+        var iter = createTime.keySet().iterator();
+
+        while (iter.hasNext()) {
+            var item = iter.next();
             System.out.println("****************************");
             System.out.println("Заказ:");
             item.print();
             System.out.println("****************************");
         }
+
+        /*for (var item : createTime.keySet()) {
+            System.out.println("****************************");
+            System.out.println("Заказ:");
+            item.print();
+            System.out.println("****************************");
+        }*/
     }
 
     /**
@@ -82,7 +93,7 @@ public class Orders<T extends Order> {
             var item = iter.next();
             if (item.getStatus() == OrderStatus.DONE) {
                 iter.remove();
-                createTime.remove(item);
+                list.remove(item);
             }
         }
     }

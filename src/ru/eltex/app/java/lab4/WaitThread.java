@@ -15,7 +15,7 @@ public class WaitThread extends ACheck {
     /**
      * Остановка работы потока
      */
-    public void TurnOff() {
+    public void turnOff() {
         if (work) {
             work = false;
         } else {
@@ -30,8 +30,14 @@ public class WaitThread extends ACheck {
     public void run() {
         while (work) {
             synchronized (orders) {
-                orders.setDone();
                 orders.show();
+                orders.setDone();
+                System.out.println("wait");
+            }
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
     }

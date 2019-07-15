@@ -9,21 +9,28 @@ public class Main {
 
         Generate generate = new Generate(1000,user,orders);
         generate.start();
-
-        Thread doneThread = new Thread(new DoneThread(orders));
-        Thread waitThread = new Thread(new WaitThread(orders));
-        doneThread.start();
-        waitThread.start();
-
-
-        System.out.println("start");
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         generate.TurnOff();
-        System.out.println("stop");
-        System.out.println();
+        DoneThread doneThread1=new DoneThread(orders);
+        WaitThread waitThread1=new WaitThread(orders);
+
+        Thread doneThread = new Thread(doneThread1);
+        Thread waitThread = new Thread(waitThread1);
+
+        waitThread.start();
+        //doneThread.start();
+
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        doneThread1.turnOff();
+        waitThread1.turnOff();
     }
 }

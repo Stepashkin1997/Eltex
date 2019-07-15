@@ -14,7 +14,7 @@ public class DoneThread extends ACheck {
     /**
      * Остановка работы потока
      */
-    public void TurnOff() {
+    public void turnOff() {
         if (work) {
             work = false;
         } else {
@@ -30,7 +30,12 @@ public class DoneThread extends ACheck {
         while (work) {
             synchronized (orders) {
                 orders.removeDone();
-                orders.show();
+                System.out.println("done");
+            }
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
     }
