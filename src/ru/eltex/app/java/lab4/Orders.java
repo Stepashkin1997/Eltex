@@ -1,4 +1,4 @@
-package ru.eltex.app.java.lab3;
+package ru.eltex.app.java.lab4;
 
 import java.sql.Date;
 import java.util.HashMap;

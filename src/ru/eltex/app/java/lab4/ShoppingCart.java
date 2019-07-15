@@ -1,4 +1,4 @@
-package ru.eltex.app.java.lab3;
+package ru.eltex.app.java.lab4;
 
 import java.util.ArrayList;
 import java.util.HashSet;
