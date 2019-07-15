@@ -1,16 +1,16 @@
-package ru.eltex.app.java.lab3;
+package ru.eltex.app.java.lab1;
 
 import java.io.IOException;
 import java.util.Scanner;
 
-public class Coffee extends Drinks {
-    private StringBuilder typecofee;//вид кофейных зёрен (арабика, робуста)
+public class Tea extends Drinks {
+    private StringBuilder typebox;//Вид упаковки
 
     /**
-     * конструктор по умолчанию*/
-    public Coffee() {
+     * конструктор по умолчанию
+     */
+    public Tea() {
     }
-
 
     /**
      * перегруженный конструктор
@@ -18,11 +18,11 @@ public class Coffee extends Drinks {
      * @param coast
      * @param company
      * @param developer
-     * @param typecofee
+     * @param Typebox
      */
-    public Coffee(String name, double coast, String company, String developer, String typecofee) {
+    public Tea(String name, double coast, String company, String developer, String Typebox) {
         super(new StringBuilder(name), coast, new StringBuilder(company), new StringBuilder(developer));
-        this.typecofee = new StringBuilder(typecofee);
+        this.typebox = new StringBuilder(Typebox);
     }
 
     /**
@@ -31,7 +31,7 @@ public class Coffee extends Drinks {
     @Override
     public void create() {
         super.create();
-        typecofee = null;
+        typebox = null;
     }
 
     /**
@@ -40,7 +40,7 @@ public class Coffee extends Drinks {
     @Override
     public void read() {
         super.read();
-        System.out.println("Вид кофейных зёрен: " + typecofee);
+        System.out.println("Вид упаковки: " + typebox);
     }
 
     /**
@@ -50,9 +50,9 @@ public class Coffee extends Drinks {
     @Override
     public void update() throws IOException {
         super.update();
-        System.out.println("Введите название вида кофейных зёрен:");
+        System.out.println("Введите название вида упаковки:");
         Scanner scanner = new Scanner(System.in);
-        typecofee = new StringBuilder(scanner.nextLine());
+        typebox = new StringBuilder(scanner.nextLine());
     }
 
     /**
@@ -61,6 +61,6 @@ public class Coffee extends Drinks {
     @Override
     public void delete() {
         super.delete();
-        typecofee = null;
+        typebox = null;
     }
 }

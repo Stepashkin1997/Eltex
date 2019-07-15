@@ -2,7 +2,9 @@ package ru.eltex.app.java.lab3;
 
 import java.sql.Date;
 
-/*класс заказ*/
+/**
+ * класс заказ
+ */
 public class Order {
     private OrderStatus status;//статус заказа
     private Date ordertime;//время покупки

@@ -4,7 +4,10 @@ import java.sql.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 
-/*Класс коллекция заказы*/
+
+/**
+ * Класс коллекция заказы
+ */
 public class Orders {
     private LinkedList<Order> list;//Коллекция для хранения объектов в классе «заказы»
     private HashMap<Order, Date> createTime;//Коллекция для хранения объектов по времени создания
@@ -14,7 +17,10 @@ public class Orders {
         createTime = new HashMap();
     }
 
-    /*функция вывода*/
+
+    /**
+     * Функция вывода
+     */
     public void show() {
         for (var item : createTime.keySet()) {
             System.out.println("****************************");
@@ -24,14 +30,21 @@ public class Orders {
         }
     }
 
-    /*оформит покупку*/
+    /**
+     * Оформление покупки
+     * @param cart Корзина
+     * @param credentials Данные пользователя
+     */
     public void purchase(ShoppingCart cart, Credentials credentials) {
         Order order = new Order(cart, credentials);
         list.add(order);
         createTime.put(order, order.getOrdertime());
     }
 
-    /*обход коллекции и удаление всех объектов, время ожидания которых истекло и статус «обработан»*/
+
+    /**
+     * обход коллекции и удаление всех объектов, время ожидания которых истекло и статус «обработан»
+     */
     public void clear() {
         var iter = createTime.keySet().iterator();
 
@@ -45,6 +58,9 @@ public class Orders {
         }
     }
 
+    /**
+     * Установить все в готовое
+     */
     public void setDoneAll(){
         for (var item : list) {
             item.setStatus(OrderStatus.DONE);
