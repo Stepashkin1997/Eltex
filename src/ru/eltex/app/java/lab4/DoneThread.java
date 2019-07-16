@@ -28,14 +28,18 @@ public class DoneThread extends ACheck {
     @Override
     public void run() {
         while (work) {
-            synchronized (orders) {
+   /*         synchronized (orders) {
                 orders.removeDone();
                 System.out.println("done");
-            }
+           }*/
             try {
-                Thread.sleep(500);
+                Thread.sleep(100);
             } catch (InterruptedException e) {
                 e.printStackTrace();
+            }
+            synchronized (ACheck.string) {
+                ACheck.string = ACheck.string.concat("?");
+                System.out.println("вопрос " + ACheck.string);
             }
         }
     }

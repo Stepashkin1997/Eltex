@@ -19,7 +19,7 @@ public class Generate extends Thread {
     /**
      * Остановка работы потока
      */
-    public void TurnOff() {
+    public void turnOff() {
         if (work) {
             work = false;
         } else {
@@ -34,8 +34,9 @@ public class Generate extends Thread {
     public void run() {
         super.run();
         while (work) {
+            cart = new ShoppingCart<>();
+
             synchronized (cart) {
-                cart = new ShoppingCart<>();
                 cart.add(new Coffee());
                 cart.add(new Tea());
 

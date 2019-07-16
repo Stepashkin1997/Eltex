@@ -29,15 +29,18 @@ public class WaitThread extends ACheck {
     @Override
     public void run() {
         while (work) {
-            synchronized (orders) {
-                orders.show();
+/*            synchronized (orders) {
                 orders.setDone();
                 System.out.println("wait");
-            }
+            }*/
             try {
-                Thread.sleep(1000);
+                Thread.sleep(100);
             } catch (InterruptedException e) {
                 e.printStackTrace();
+            }
+            synchronized (ACheck.string) {
+                ACheck.string=ACheck.string.concat("!");
+                System.out.println("воскл "+ACheck.string);
             }
         }
     }
