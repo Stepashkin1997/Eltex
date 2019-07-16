@@ -34,13 +34,6 @@ public class Orders<T extends Order> {
             item.print();
             System.out.println("****************************");
         }
-
-        /*for (var item : createTime.keySet()) {
-            System.out.println("****************************");
-            System.out.println("Заказ:");
-            item.print();
-            System.out.println("****************************");
-        }*/
     }
 
     /**

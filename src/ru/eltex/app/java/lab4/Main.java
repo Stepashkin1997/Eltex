@@ -25,10 +25,7 @@ public class Main {
             e.printStackTrace();
         }
 
-
-
        doneThread.start();
-
 
 
         try {
