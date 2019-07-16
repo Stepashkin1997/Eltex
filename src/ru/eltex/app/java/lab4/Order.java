@@ -44,7 +44,9 @@ public class Order {
         return credentials;
     }
 
-    /*метод вывода содержимого объекта на экран*/
+    /**
+     * метод вывода содержимого объекта на экран
+     */
     public void print() {
         System.out.println("Status: " + status);
         System.out.println("Order time: " + ordertime);
@@ -54,6 +56,4 @@ public class Order {
         System.out.println("Данные о пользователе:");
         credentials.show();
     }
-
-
 }

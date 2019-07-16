@@ -34,12 +34,13 @@ public class Generate extends Thread {
     public void run() {
         super.run();
         while (work) {
-            cart = new ShoppingCart<>();
-            cart.add(new Coffee());
-            cart.add(new Tea());
+            synchronized (cart) {
+                cart = new ShoppingCart<>();
+                cart.add(new Coffee());
+                cart.add(new Tea());
 
-            orders.purchase(cart, user);
-
+                orders.purchase(cart, user);
+            }
             try {
                 sleep(period);
             } catch (InterruptedException e) {

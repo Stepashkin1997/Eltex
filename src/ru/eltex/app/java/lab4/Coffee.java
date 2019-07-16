@@ -45,7 +45,7 @@ public class Coffee extends Drinks {
 
     /**
      * ввод данных с клавиатуры
-     * @throws IOException
+     * @throws IOException не корректный ввод
      */
     @Override
     public void update() throws IOException {

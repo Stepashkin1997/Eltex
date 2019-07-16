@@ -64,6 +64,9 @@ public class Credentials {
         this.email = email;
     }
 
+    /**
+     * Вывод данных на экран
+     */
     public void show() {
         System.out.println("Name: " + name);
         System.out.println("Surname: " + surname);

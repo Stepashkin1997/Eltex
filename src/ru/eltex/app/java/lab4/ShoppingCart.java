@@ -6,7 +6,7 @@ import java.util.UUID;
 
 /**
  * класс коллекция корзина
- * @param <T>
+ * @param <T> extends Drinks
  */
 public class ShoppingCart<T extends Drinks> {
     private ArrayList<T> list;//Коллекция для хранения объектов в классе «корзина»
