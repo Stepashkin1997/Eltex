@@ -1,13 +1,14 @@
-package ru.eltex.app.java.lab4;
+package ru.eltex.app.java.lab5;
+
 
 /**
- * поток проверяет заказы по статусу «обработан».
- * Если заказ обнаружен в этом состоянии, заказ удаляется из списка.
+ * делает проверку коллекции и проверяет заказы по статусу «в ожидании».
+ * Если заказ обнаружен в этом состоянии, то меняется статус заказа на состояние «обработан».
  */
-public class DoneThread extends ACheck {
+public class WaitThread extends ACheck {
     private boolean work = true;
 
-    public DoneThread(Orders<?> orders) {
+    public WaitThread(Orders<?> orders) {
         super(orders);
     }
 
@@ -22,6 +23,7 @@ public class DoneThread extends ACheck {
         }
     }
 
+
     /**
      * метод работающий в потоке
      */
@@ -29,9 +31,10 @@ public class DoneThread extends ACheck {
     public void run() {
         while (work) {
             synchronized (orders) {
-                orders.removeDone();
-                System.out.println("done");
+                orders.setDone();
+                System.out.println("wait");
             }
+
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {

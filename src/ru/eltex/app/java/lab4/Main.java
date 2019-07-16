@@ -7,8 +7,8 @@ public class Main {
         Credentials user = new Credentials("Lol", "Kekovich", "Azaza", "123@ololo.ua");
 
 
-/*        Generate generate = new Generate(1000, user, orders);
-        generate.start();*/
+        Generate generate = new Generate(1000, user, orders);
+        generate.start();
 
         DoneThread doneThread1 = new DoneThread(orders);
         WaitThread waitThread1 = new WaitThread(orders);
@@ -19,11 +19,11 @@ public class Main {
         waitThread.start();
 
 
- /*       try {
+        try {
             Thread.sleep(500);
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }*/
+        }
 
 
 
@@ -32,13 +32,13 @@ public class Main {
 
 
         try {
-            Thread.sleep(500);
+            Thread.sleep(5000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
 
- /*       generate.turnOff();*/
+        generate.turnOff();
         doneThread1.turnOff();
         waitThread1.turnOff();
 

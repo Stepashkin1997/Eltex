@@ -1,4 +1,4 @@
-package ru.eltex.app.java.lab4;
+package ru.eltex.app.java.lab5;
 
 /**
  * класс, описывающий проверку заказов по статусу

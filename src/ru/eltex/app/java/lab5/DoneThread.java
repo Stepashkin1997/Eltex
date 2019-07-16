@@ -1,4 +1,4 @@
-package ru.eltex.app.java.lab4;
+package ru.eltex.app.java.lab5;
 
 /**
  * поток проверяет заказы по статусу «обработан».
