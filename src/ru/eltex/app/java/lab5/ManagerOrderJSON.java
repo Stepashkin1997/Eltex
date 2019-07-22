@@ -1,8 +1,10 @@
 package ru.eltex.app.java.lab5;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.*;
+import java.lang.reflect.Type;
 import java.util.UUID;
 
 /**
@@ -21,6 +23,8 @@ public final class ManagerOrderJSON extends AManageOrder {
         Order order = null;
         gson = new Gson();
         try (FileReader reader = new FileReader(file.getAbsoluteFile())) {
+            Type type = new TypeToken<Orders<Order>>() {
+            }.getType();
             order = gson.fromJson(reader, Order.class);
         } catch (IOException e) {
             e.printStackTrace();
@@ -32,6 +36,7 @@ public final class ManagerOrderJSON extends AManageOrder {
     public void saveById(Order order) {
         gson = new Gson();
         try (FileWriter writer = new FileWriter(file.getAbsoluteFile())) {
+
             gson.toJson(order, writer);
         } catch (IOException e) {
             e.printStackTrace();
@@ -43,7 +48,9 @@ public final class ManagerOrderJSON extends AManageOrder {
         Orders orders = null;
         gson = new Gson();
         try (FileReader reader = new FileReader(file.getAbsoluteFile())) {
-            orders = gson.fromJson(reader, Orders.class);
+            Type fooType = new TypeToken<Orders<Order>>() {
+            }.getType();
+            orders = gson.fromJson(reader, fooType);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -54,7 +61,9 @@ public final class ManagerOrderJSON extends AManageOrder {
     public void saveAll(Orders orders) {
         gson = new Gson();
         try (FileWriter writer = new FileWriter(file.getAbsoluteFile())) {
-            gson.toJson(orders, writer);
+            Type fooType = new TypeToken<Orders<Order>>() {
+            }.getType();
+            gson.toJson(orders, fooType, writer);
         } catch (IOException e) {
             e.printStackTrace();
         }

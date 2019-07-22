@@ -12,10 +12,10 @@ public final class Order implements Serializable {
     private OrderStatus status;//статус заказа
     private Date ordertime;//время покупки
     private long diff;//время ожидания
-    private ShoppingCart cart;//Агрегация ссылка на ShoppingCart
+    private ShoppingCart<?> cart;//Агрегация ссылка на ShoppingCart
     private Credentials credentials;//Агрегация ссылка на Credentials
 
-    public Order(ShoppingCart cart, Credentials credentials) {
+    public Order(ShoppingCart<?> cart, Credentials credentials) {
         this.id = UUID.randomUUID();
         this.status = OrderStatus.WAITING;
         this.cart = cart;
@@ -44,7 +44,7 @@ public final class Order implements Serializable {
         return diff;
     }
 
-    public ShoppingCart getCart() {
+    public ShoppingCart<?> getCart() {
         return cart;
     }
 
