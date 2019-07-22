@@ -24,6 +24,15 @@ public final class Order implements Serializable {
         this.diff = (long) (Math.random() * 100);
     }
 
+    public Order(UUID id, OrderStatus status, Date ordertime, long diff, ShoppingCart<?> cart, Credentials credentials) {
+        this.id = id;
+        this.status = status;
+        this.ordertime = ordertime;
+        this.diff = diff;
+        this.cart = cart;
+        this.credentials = credentials;
+    }
+
     public UUID getId() {
         return id;
     }

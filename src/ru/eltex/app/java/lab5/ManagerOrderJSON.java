@@ -1,6 +1,8 @@
 package ru.eltex.app.java.lab5;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.*;
@@ -11,21 +13,25 @@ import java.util.UUID;
  * класс  ManagerOrderJSON для хранения заказов в виде текстового файла в формате JSON
  */
 public final class ManagerOrderJSON extends AManageOrder {
-    private Gson gson;
+    private final Gson gson;
 
     public ManagerOrderJSON() {
-        gson = new Gson();
+        final GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.registerTypeAdapter(Order.class, new OrderDeserializer())
+                .registerTypeAdapter(Orders.class, new OrdersSerializer())
+                .registerTypeAdapter(Drinks.class, new DrinksDeserializer());
+        gsonBuilder.serializeNulls();
+        gson = gsonBuilder.setPrettyPrinting().create();
         file = new File("/home/nikita/work/dump.json");
     }
 
     @Override
     public Order readById(UUID id) {
         Order order = null;
-        gson = new Gson();
         try (FileReader reader = new FileReader(file.getAbsoluteFile())) {
-            Type type = new TypeToken<Orders<Order>>() {
+            Type type = new TypeToken<Order>() {
             }.getType();
-            order = gson.fromJson(reader, Order.class);
+            order = gson.fromJson(reader, type);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -34,7 +40,6 @@ public final class ManagerOrderJSON extends AManageOrder {
 
     @Override
     public void saveById(Order order) {
-        gson = new Gson();
         try (FileWriter writer = new FileWriter(file.getAbsoluteFile())) {
 
             gson.toJson(order, writer);
@@ -46,10 +51,10 @@ public final class ManagerOrderJSON extends AManageOrder {
     @Override
     public Orders readAll() {
         Orders orders = null;
-        gson = new Gson();
         try (FileReader reader = new FileReader(file.getAbsoluteFile())) {
             Type fooType = new TypeToken<Orders<Order>>() {
             }.getType();
+
             orders = gson.fromJson(reader, fooType);
         } catch (IOException e) {
             e.printStackTrace();
@@ -59,11 +64,8 @@ public final class ManagerOrderJSON extends AManageOrder {
 
     @Override
     public void saveAll(Orders orders) {
-        gson = new Gson();
         try (FileWriter writer = new FileWriter(file.getAbsoluteFile())) {
-            Type fooType = new TypeToken<Orders<Order>>() {
-            }.getType();
-            gson.toJson(orders, fooType, writer);
+            gson.toJson(orders, writer);
         } catch (IOException e) {
             e.printStackTrace();
         }

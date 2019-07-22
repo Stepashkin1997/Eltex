@@ -20,6 +20,14 @@ public final class Orders<T extends Order> implements Serializable {
         createTime = new HashMap();
     }
 
+    public LinkedList<T> getList() {
+        return list;
+    }
+
+    public HashMap<T, Date> getCreateTime() {
+        return createTime;
+    }
+
     /**
      * Функция вывода
      */
