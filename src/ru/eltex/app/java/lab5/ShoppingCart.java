@@ -1,5 +1,6 @@
 package ru.eltex.app.java.lab5;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.UUID;
@@ -8,7 +9,7 @@ import java.util.UUID;
  * класс коллекция корзина
  * @param <T> extends Drinks
  */
-public class ShoppingCart<T extends Drinks> {
+public final class ShoppingCart<T extends Drinks> implements Serializable {
     private ArrayList<T> list;//Коллекция для хранения объектов в классе «корзина»
     private HashSet<UUID> setId;//Коллекция для хранения и поиска уникальных идентификаторов
 

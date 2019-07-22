@@ -1,10 +1,11 @@
 package ru.eltex.app.java.lab5;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.Scanner;
 import java.util.UUID;
 
-public abstract class Drinks implements ICrudAction {
+public abstract class Drinks implements ICrudAction, Serializable {
     private UUID id;//id товара
     private StringBuilder name;//Название
     private double coast;//Цена
@@ -28,9 +29,10 @@ public abstract class Drinks implements ICrudAction {
 
     /**
      * перегруженный конструктор
-     * @param name Название
-     * @param coast Цена
-     * @param company Фирма поставщик
+     *
+     * @param name      Название
+     * @param coast     Цена
+     * @param company   Фирма поставщик
      * @param developer Страна производитель
      */
     public Drinks(StringBuilder name, double coast, StringBuilder company, StringBuilder developer) {
@@ -88,6 +90,7 @@ public abstract class Drinks implements ICrudAction {
 
     /**
      * Ввод данных с клавиатуры
+     *
      * @throws IOException
      */
     @Override

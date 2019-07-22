@@ -5,7 +5,7 @@ package ru.eltex.app.java.lab5;
  * делает проверку коллекции и проверяет заказы по статусу «в ожидании».
  * Если заказ обнаружен в этом состоянии, то меняется статус заказа на состояние «обработан».
  */
-public class WaitThread extends ACheck {
+public final class WaitThread extends ACheck {
     private boolean work = true;
 
     public WaitThread(Orders<?> orders) {

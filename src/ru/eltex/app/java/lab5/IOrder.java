@@ -1,16 +1,39 @@
 package ru.eltex.app.java.lab5;
 
+import java.util.UUID;
+
 /**
  * интерфейс для хранения заказов
  */
 public interface IOrder {
 
-    void readById();
+    /**
+     * чтенние из файла по id
+     *
+     * @param id индификтатор покоторому ищется
+     * @return возвращает Order
+     */
+    Order readById(UUID id);
 
-    void saveById();
+    /**
+     * сохранение в файл по id
+     *
+     * @param order заказ который будет записан
+     */
+    void saveById(Order order);
 
-    void readAll();
+    /**
+     * чтение в файл всех объектов
+     *
+     * @return возвращает Orders
+     */
+    Orders readAll();
 
-    void saveAll();
+    /**
+     * сохранение в файл всех объектов
+     *
+     * @param orders заказы которые будут записаны
+     */
+    void saveAll(Orders orders);
 
 }

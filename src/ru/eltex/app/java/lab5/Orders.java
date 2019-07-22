@@ -1,8 +1,10 @@
 package ru.eltex.app.java.lab5;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.UUID;
 
 
 /**
@@ -10,7 +12,7 @@ import java.util.LinkedList;
  *
  * @param <T> extends Order
  */
-public class Orders<T extends Order> {
+public final class Orders<T extends Order> implements Serializable {
     private LinkedList<T> list;//Коллекция для хранения объектов в классе «заказы»
     private HashMap<T, Date> createTime;//Коллекция для хранения объектов по времени создания
 
@@ -18,7 +20,6 @@ public class Orders<T extends Order> {
         list = new LinkedList();
         createTime = new HashMap();
     }
-
 
     /**
      * Функция вывода
@@ -34,13 +35,6 @@ public class Orders<T extends Order> {
             item.print();
             System.out.println("****************************");
         }
-
-        /*for (var item : createTime.keySet()) {
-            System.out.println("****************************");
-            System.out.println("Заказ:");
-            item.print();
-            System.out.println("****************************");
-        }*/
     }
 
     /**
@@ -97,4 +91,9 @@ public class Orders<T extends Order> {
             }
         }
     }
+
+    public T getFirstOrder() {
+        return list.getFirst();
+    }
+
 }

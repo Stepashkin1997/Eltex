@@ -3,7 +3,7 @@ package ru.eltex.app.java.lab5;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class Coffee extends Drinks {
+public final class Coffee extends Drinks {
     private StringBuilder typecofee;//вид кофейных зёрен (арабика, робуста)
 
     /**

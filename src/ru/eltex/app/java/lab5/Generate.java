@@ -3,7 +3,7 @@ package ru.eltex.app.java.lab5;
 /**
  * класс автоматической генерации заказов в виде отдельного потока
  */
-public class Generate extends Thread {
+public final class Generate extends Thread {
     private boolean work = true;
     private long period;
     private Credentials user;
