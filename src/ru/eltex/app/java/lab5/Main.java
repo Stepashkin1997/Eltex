@@ -22,10 +22,15 @@ public class Main {
         cart2.add(new Coffee("B", 321, "IBM", "Eltex", "Arabic"));
         orders.purchase(cart2, user);
 
-    /*    Order order = new Order(cart1, user);*/
-        json.saveAll(orders);//сохранение заказов
-        Orders orders1 = json.readAll();//чение заказов
-        orders1.show();//показ
+        Order order = new Order(cart1, user);
+       /* json.saveAll(orders);//сохранение заказов
+        Orders orders1 = json.readAll();//чение заказов*/
+
+   /*    orderFile.saveAll(orders);
+       Orders orders1 = orderFile.readAll();//чение заказов*/
+        orderFile.saveById(order);
+        Order order1 = orderFile.readById(order.getId());//чение заказов
+        order1.print();//показ
     }
 
 }
