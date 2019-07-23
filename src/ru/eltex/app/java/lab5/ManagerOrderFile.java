@@ -15,7 +15,8 @@ public final class ManagerOrderFile extends AManageOrder {
     @Override
     public Order readById(UUID id) {
         Order order = null;
-        try (ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(file.getAbsoluteFile()))) {
+        try (ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(file.getAbsoluteFile())))
+        {
             if (!file.exists()) {
                 return null;
             }
@@ -32,8 +33,8 @@ public final class ManagerOrderFile extends AManageOrder {
 
     @Override
     public void saveById(Order order) {
-
-        try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(file.getAbsoluteFile()))) {
+        try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(file.getAbsoluteFile())))
+        {
             if (file.exists()) ;
             else
                 file.createNewFile();
@@ -48,7 +49,8 @@ public final class ManagerOrderFile extends AManageOrder {
     @Override
     public Orders readAll() {
         Orders orders = null;
-        try (ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(file.getAbsoluteFile()))) {
+        try (ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(file.getAbsoluteFile())))
+        {
             if (!file.exists()) {
                 return null;
             }
@@ -63,13 +65,11 @@ public final class ManagerOrderFile extends AManageOrder {
 
     @Override
     public void saveAll(Orders orders) {
-
-        try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(file.getAbsoluteFile()))) {
-
+        try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(file.getAbsoluteFile())))
+        {
             if (file.exists()) ;
             else
                 file.createNewFile();
-
             objectOutputStream.writeObject(orders);
             objectOutputStream.flush();
 

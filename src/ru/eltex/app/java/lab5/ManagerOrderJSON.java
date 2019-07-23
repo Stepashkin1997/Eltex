@@ -20,7 +20,6 @@ public final class ManagerOrderJSON extends AManageOrder {
                 .registerTypeAdapter(Orders.class, new OrdersSerializer())
                 .registerTypeAdapter(Orders.class, new OrdersDeserializer())
                 .registerTypeAdapter(Drinks.class, new DrinksDeserializer());
-        gsonBuilder.serializeNulls();
         gson = gsonBuilder.setPrettyPrinting().create();
         file = new File("/home/nikita/work/dump.json");
     }
@@ -34,6 +33,9 @@ public final class ManagerOrderJSON extends AManageOrder {
     public Order readById(UUID id) {
         Order order = null;
         try (FileReader reader = new FileReader(file.getAbsoluteFile())) {
+            if (!file.exists()) {
+                return null;
+            }
             Type type = new TypeToken<Order>() {
             }.getType();
             order = gson.fromJson(reader, type);
@@ -50,7 +52,9 @@ public final class ManagerOrderJSON extends AManageOrder {
     @Override
     public void saveById(Order order) {
         try (FileWriter writer = new FileWriter(file.getAbsoluteFile())) {
-
+            if (!file.exists()) {
+                file.createNewFile();
+            }
             gson.toJson(order, writer);
         } catch (IOException e) {
             e.printStackTrace();
@@ -65,9 +69,11 @@ public final class ManagerOrderJSON extends AManageOrder {
     public Orders readAll() {
         Orders orders = null;
         try (FileReader reader = new FileReader(file.getAbsoluteFile())) {
+            if (!file.exists()) {
+                return null;
+            }
             Type fooType = new TypeToken<Orders<Order>>() {
             }.getType();
-
             orders = gson.fromJson(reader, fooType);
         } catch (IOException e) {
             e.printStackTrace();
@@ -82,6 +88,9 @@ public final class ManagerOrderJSON extends AManageOrder {
     @Override
     public void saveAll(Orders orders) {
         try (FileWriter writer = new FileWriter(file.getAbsoluteFile())) {
+            if (!file.exists()) {
+                file.createNewFile();
+            }
             gson.toJson(orders, writer);
         } catch (IOException e) {
             e.printStackTrace();

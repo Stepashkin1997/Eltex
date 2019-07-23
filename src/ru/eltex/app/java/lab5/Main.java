@@ -26,8 +26,8 @@ public class Main {
        /* json.saveAll(orders);//сохранение заказов
         Orders orders1 = json.readAll();//чение заказов*/
 
-   /*    orderFile.saveAll(orders);
-       Orders orders1 = orderFile.readAll();//чение заказов*/
+       /*orderFile.saveAll(orders);
+        Orders orders1 = orderFile.readAll();//чение заказов*/
         orderFile.saveById(order);
         Order order1 = orderFile.readById(order.getId());//чение заказов
         order1.print();//показ
