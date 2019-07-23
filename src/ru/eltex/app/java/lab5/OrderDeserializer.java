@@ -15,9 +15,6 @@ public final class OrderDeserializer implements JsonDeserializer<Order> {
     public Order deserialize(JsonElement json, Type type, JsonDeserializationContext context)
             throws JsonParseException {
         JsonObject jobject = json.getAsJsonObject();
-        Gson gson = new GsonBuilder()
-         .registerTypeAdapter(Drinks.class, new DrinksDeserializer())
-         .create();
         UUID id = UUID.fromString(jobject.get("id").getAsString());
         var status = OrderStatus.valueOf(jobject.get("status").getAsString());
 

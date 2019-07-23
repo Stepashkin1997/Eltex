@@ -2,7 +2,6 @@ package ru.eltex.app.java.lab5;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.*;
@@ -19,12 +18,18 @@ public final class ManagerOrderJSON extends AManageOrder {
         final GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.registerTypeAdapter(Order.class, new OrderDeserializer())
                 .registerTypeAdapter(Orders.class, new OrdersSerializer())
+                .registerTypeAdapter(Orders.class, new OrdersDeserializer())
                 .registerTypeAdapter(Drinks.class, new DrinksDeserializer());
         gsonBuilder.serializeNulls();
         gson = gsonBuilder.setPrettyPrinting().create();
         file = new File("/home/nikita/work/dump.json");
     }
 
+    /**
+     * чтенние из файла json по id
+     * @param id индификтатор покоторому ищется
+     * @return заказ котрорый был записан по id
+     */
     @Override
     public Order readById(UUID id) {
         Order order = null;
@@ -38,6 +43,10 @@ public final class ManagerOrderJSON extends AManageOrder {
         return order;
     }
 
+    /**
+     * сохранение в файл json по id
+     * @param order заказ который будет записан
+     */
     @Override
     public void saveById(Order order) {
         try (FileWriter writer = new FileWriter(file.getAbsoluteFile())) {
@@ -48,6 +57,10 @@ public final class ManagerOrderJSON extends AManageOrder {
         }
     }
 
+    /**
+     * чтение в файл json всех объектов
+     * @return класс orders со всеми заказами
+     */
     @Override
     public Orders readAll() {
         Orders orders = null;
@@ -62,6 +75,10 @@ public final class ManagerOrderJSON extends AManageOrder {
         return orders;
     }
 
+    /**
+     * сохранение в файл json всех объектов
+     * @param orders заказы которые будут записаны
+     */
     @Override
     public void saveAll(Orders orders) {
         try (FileWriter writer = new FileWriter(file.getAbsoluteFile())) {

@@ -4,7 +4,7 @@ import com.google.gson.*;
 
 import java.lang.reflect.Type;
 
-public class DrinksDeserializer implements JsonDeserializer<Drinks> {
+public final class DrinksDeserializer implements JsonDeserializer<Drinks> {
     @Override
     public Drinks deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         JsonObject jsonObject = json.getAsJsonObject();

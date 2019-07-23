@@ -13,18 +13,23 @@ import java.util.LinkedList;
  */
 public final class Orders<T extends Order> implements Serializable {
     private LinkedList<T> list;//Коллекция для хранения объектов в классе «заказы»
-    private HashMap<T, Date> createTime;//Коллекция для хранения объектов по времени создания
+    private HashMap<Date, T> createTime;//Коллекция для хранения объектов по времени создания
 
     public Orders() {
         list = new LinkedList();
         createTime = new HashMap();
     }
 
+    public Orders(LinkedList<T> list, HashMap<Date, T> createTime) {
+        this.list = list;
+        this.createTime = createTime;
+    }
+
     public LinkedList<T> getList() {
         return list;
     }
 
-    public HashMap<T, Date> getCreateTime() {
+    public HashMap<Date, T> getCreateTime() {
         return createTime;
     }
 
@@ -33,7 +38,7 @@ public final class Orders<T extends Order> implements Serializable {
      */
     public void show() {
 
-        var iter = createTime.keySet().iterator();
+        var iter = createTime.values().iterator();
 
         while (iter.hasNext()) {
             var item = iter.next();
@@ -53,7 +58,7 @@ public final class Orders<T extends Order> implements Serializable {
     public void purchase(ShoppingCart cart, Credentials credentials) {
         Order order = new Order(cart, credentials);
         list.add((T) order);
-        createTime.put((T) order, order.getOrdertime());
+        createTime.put(order.getOrdertime(),(T) order);
     }
 
 
@@ -61,7 +66,7 @@ public final class Orders<T extends Order> implements Serializable {
      * обход коллекции и удаление всех объектов, время ожидания которых истекло и статус «обработан»
      */
     public void clear() {
-        var iter = createTime.keySet().iterator();
+        var iter = createTime.values().iterator();
 
         while (iter.hasNext()) {
             var item = iter.next();
@@ -88,7 +93,7 @@ public final class Orders<T extends Order> implements Serializable {
      * Удаляет готовые заказы
      */
     public void removeDone() {
-        var iter = createTime.keySet().iterator();
+        var iter = createTime.values().iterator();
 
         while (iter.hasNext()) {
             var item = iter.next();
