@@ -2,6 +2,8 @@ package ru.eltex.app.java.lab5;
 
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
+import ru.eltex.app.java.lab2.Order;
+import ru.eltex.app.java.lab2.Orders;
 
 import java.lang.reflect.Type;
 import java.sql.Date;

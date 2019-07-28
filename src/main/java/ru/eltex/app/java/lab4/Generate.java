@@ -1,5 +1,12 @@
 package ru.eltex.app.java.lab4;
 
+import ru.eltex.app.java.lab1.Coffee;
+import ru.eltex.app.java.lab1.Drinks;
+import ru.eltex.app.java.lab1.Tea;
+import ru.eltex.app.java.lab2.Credentials;
+import ru.eltex.app.java.lab2.Orders;
+import ru.eltex.app.java.lab2.ShoppingCart;
+
 /**
  * класс автоматической генерации заказов в виде отдельного потока
  */

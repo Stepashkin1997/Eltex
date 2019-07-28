@@ -1,23 +1,40 @@
 package ru.eltex.app.java.lab2;
 
+import java.io.Serializable;
 import java.sql.Date;
+import java.util.UUID;
 
 /**
  * класс заказ
  */
-public class Order {
+public final class Order implements Serializable {
+    private UUID id;//id для заказа
     private OrderStatus status;//статус заказа
     private Date ordertime;//время покупки
     private long diff;//время ожидания
-    private ShoppingCart cart;//Агрегация ссылка на ShoppingCart
+    private ShoppingCart<?> cart;//Агрегация ссылка на ShoppingCart
     private Credentials credentials;//Агрегация ссылка на Credentials
 
-    public Order(ShoppingCart cart, Credentials credentials) {
+    public Order(ShoppingCart<?> cart, Credentials credentials) {
+        this.id = UUID.randomUUID();
         this.status = OrderStatus.WAITING;
         this.cart = cart;
         this.credentials = credentials;
         this.ordertime = new Date(System.currentTimeMillis());
-        diff = (long) (Math.random() * 100);
+        this.diff = (long) (Math.random() * 100);
+    }
+
+    public Order(UUID id, OrderStatus status, Date ordertime, long diff, ShoppingCart<?> cart, Credentials credentials) {
+        this.id = id;
+        this.status = status;
+        this.ordertime = ordertime;
+        this.diff = diff;
+        this.cart = cart;
+        this.credentials = credentials;
+    }
+
+    public UUID getId() {
+        return id;
     }
 
     public OrderStatus getStatus() {
@@ -36,7 +53,7 @@ public class Order {
         return diff;
     }
 
-    public ShoppingCart getCart() {
+    public ShoppingCart<?> getCart() {
         return cart;
     }
 
@@ -44,7 +61,9 @@ public class Order {
         return credentials;
     }
 
-    /*метод вывода содержимого объекта на экран*/
+    /**
+     * метод вывода содержимого объекта на экран
+     */
     public void print() {
         System.out.println("Status: " + status);
         System.out.println("Order time: " + ordertime);
@@ -54,6 +73,4 @@ public class Order {
         System.out.println("Данные о пользователе:");
         credentials.show();
     }
-
-
 }

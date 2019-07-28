@@ -1,5 +1,7 @@
 package ru.eltex.app.java.lab4;
 
+import ru.eltex.app.java.lab2.Orders;
+
 /**
  * класс, описывающий проверку заказов по статусу
  */

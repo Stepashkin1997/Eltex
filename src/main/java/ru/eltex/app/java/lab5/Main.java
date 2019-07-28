@@ -1,5 +1,13 @@
 package ru.eltex.app.java.lab5;
 
+import ru.eltex.app.java.lab1.Coffee;
+import ru.eltex.app.java.lab1.Drinks;
+import ru.eltex.app.java.lab1.Tea;
+import ru.eltex.app.java.lab2.Credentials;
+import ru.eltex.app.java.lab2.Order;
+import ru.eltex.app.java.lab2.Orders;
+import ru.eltex.app.java.lab2.ShoppingCart;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -24,14 +32,14 @@ public class Main {
         orders.purchase(cart2, user);
 
         Order order = new Order(cart1, user);
-       /* json.saveAll(orders);//сохранение заказов
-        Orders orders1 = json.readAll();//чение заказов*/
-
+        json.saveById(order);//сохранение заказов
+        Orders orders1 = json.readAll();//чение заказов
+        orders1.show();
        /*orderFile.saveAll(orders);
         Orders orders1 = orderFile.readAll();//чение заказов*/
-        orderFile.saveById(order);
+        /*orderFile.saveById(order);
         Order order1 = orderFile.readById(order.getId());//чение заказов
-        order1.print();//показ
+        order1.print();//показ*/
     }
 
 }

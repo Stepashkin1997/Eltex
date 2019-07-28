@@ -3,7 +3,7 @@ package ru.eltex.app.java.lab1;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class Coffee extends Drinks {
+public final class Coffee extends Drinks {
     private StringBuilder typecofee;//вид кофейных зёрен (арабика, робуста)
 
     /**
@@ -45,7 +45,7 @@ public class Coffee extends Drinks {
 
     /**
      * ввод данных с клавиатуры
-     * @throws IOException
+     * @throws IOException не корректный ввод
      */
     @Override
     public void update() throws IOException {

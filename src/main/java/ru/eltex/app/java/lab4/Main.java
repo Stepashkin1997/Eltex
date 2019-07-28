@@ -1,5 +1,9 @@
 package ru.eltex.app.java.lab4;
 
+import ru.eltex.app.java.lab2.Credentials;
+import ru.eltex.app.java.lab2.Order;
+import ru.eltex.app.java.lab2.Orders;
+
 public class Main {
 
     public static void main(String[] args) {

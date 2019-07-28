@@ -1,5 +1,8 @@
 package ru.eltex.app.java.lab2;
 
+import ru.eltex.app.java.lab1.Coffee;
+import ru.eltex.app.java.lab1.Tea;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -47,7 +50,7 @@ public class Main {
         orders.show();//показать
 
         /*Все заказы в orders готовы*/
-        orders.setDoneAll();
+        orders.setDone();
 
         /*Отчистка и показ*/
         System.out.println();

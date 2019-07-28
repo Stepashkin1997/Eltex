@@ -16,7 +16,7 @@ public interface ICrudAction {
 
     /**
      * ввод данных с клавиатуры
-     * @throws IOException
+     * @throws IOException ошибка ввода
      */
     void update() throws IOException;
 

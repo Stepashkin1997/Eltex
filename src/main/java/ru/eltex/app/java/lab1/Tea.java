@@ -3,7 +3,7 @@ package ru.eltex.app.java.lab1;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class Tea extends Drinks {
+public final class Tea extends Drinks {
     private StringBuilder typebox;//Вид упаковки
 
     /**
@@ -64,3 +64,4 @@ public class Tea extends Drinks {
         typebox = null;
     }
 }
+

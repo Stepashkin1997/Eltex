@@ -1,6 +1,9 @@
 package ru.eltex.app.java.lab5;
 
 import com.google.gson.*;
+import ru.eltex.app.java.lab1.Coffee;
+import ru.eltex.app.java.lab1.Drinks;
+import ru.eltex.app.java.lab1.Tea;
 
 import java.lang.reflect.Type;
 

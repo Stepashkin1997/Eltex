@@ -3,6 +3,9 @@ package ru.eltex.app.java.lab5;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import ru.eltex.app.java.lab1.Drinks;
+import ru.eltex.app.java.lab2.Order;
+import ru.eltex.app.java.lab2.Orders;
 
 import java.io.*;
 import java.lang.reflect.Type;

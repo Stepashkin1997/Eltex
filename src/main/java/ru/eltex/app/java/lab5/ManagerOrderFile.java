@@ -1,5 +1,8 @@
 package ru.eltex.app.java.lab5;
 
+import ru.eltex.app.java.lab2.Order;
+import ru.eltex.app.java.lab2.Orders;
+
 import java.io.*;
 import java.util.UUID;
 

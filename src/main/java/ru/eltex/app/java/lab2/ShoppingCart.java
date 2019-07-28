@@ -1,15 +1,18 @@
 package ru.eltex.app.java.lab2;
 
+import ru.eltex.app.java.lab1.Drinks;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.UUID;
 
-
 /**
  * класс коллекция корзина
+ * @param <T> extends Drinks
  */
-public class ShoppingCart {
-    private ArrayList<Drinks> list;//Коллекция для хранения объектов в классе «корзина»
+public final class ShoppingCart<T extends Drinks> implements Serializable {
+    private ArrayList<T> list;//Коллекция для хранения объектов в классе «корзина»
     private HashSet<UUID> setId;//Коллекция для хранения и поиска уникальных идентификаторов
 
     public ShoppingCart() {
@@ -21,7 +24,7 @@ public class ShoppingCart {
      * метод добавления объекта из коллекции
      * @param drink
      */
-    public void add(Drinks drink) {
+    public void add(T drink) {
         list.add(drink);
         setId.add(drink.getId());
     }
@@ -30,7 +33,7 @@ public class ShoppingCart {
      * метод удаления объекта из коллекции
      * @param drink
      */
-    public void delete(Drinks drink) {
+    public void delete(T drink) {
         list.remove(drink);
         setId.remove(drink.getId());
     }
@@ -53,3 +56,4 @@ public class ShoppingCart {
         return setId.contains(id);
     }
 }
+
