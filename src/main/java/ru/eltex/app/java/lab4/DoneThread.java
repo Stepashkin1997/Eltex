@@ -6,7 +6,7 @@ import ru.eltex.app.java.lab2.Orders;
  * поток проверяет заказы по статусу «обработан».
  * Если заказ обнаружен в этом состоянии, заказ удаляется из списка.
  */
-public class DoneThread extends ACheck {
+public final class DoneThread extends ACheck {
     private boolean work = true;
 
     public DoneThread(Orders<?> orders) {

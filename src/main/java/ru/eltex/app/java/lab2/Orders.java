@@ -1,6 +1,8 @@
 package ru.eltex.app.java.lab2;
 
+import java.io.IOException;
 import java.io.Serializable;
+import java.net.*;
 import java.sql.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -58,7 +60,20 @@ public final class Orders<T extends Order> implements Serializable {
     public void purchase(ShoppingCart cart, Credentials credentials) {
         Order order = new Order(cart, credentials);
         list.add((T) order);
-        createTime.put(order.getOrdertime(),(T) order);
+        createTime.put(order.getOrdertime(), (T) order);
+    }
+
+    /**
+     * Оформление покупки
+     *
+     * @param cart        Корзина
+     * @param credentials Данные пользователя
+     * @param address     Адресс отправителя заказа
+     */
+    public void purchase(ShoppingCart cart, Credentials credentials, InetAddress address) {
+        Order order = new Order(cart, credentials, address);
+        list.add((T) order);
+        createTime.put(order.getOrdertime(), (T) order);
     }
 
 
@@ -85,6 +100,15 @@ public final class Orders<T extends Order> implements Serializable {
         for (var item : list) {
             if (item.getStatus() == OrderStatus.WAITING) {
                 item.setStatus(OrderStatus.DONE);
+                try (DatagramSocket datagramSocket = new DatagramSocket()) {
+                    datagramSocket.send(new DatagramPacket(new byte[1], 1, item.getAddress(), 8888));
+                } catch (SocketException e) {
+                    e.printStackTrace();
+                } catch (UnknownHostException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
@@ -104,8 +128,12 @@ public final class Orders<T extends Order> implements Serializable {
         }
     }
 
+    /**
+     * возвращает первый элемент из коллекции list
+     *
+     * @return T-параметр
+     */
     public T getFirstOrder() {
         return list.getFirst();
     }
-
 }

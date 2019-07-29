@@ -10,8 +10,9 @@ import ru.eltex.app.java.lab2.ShoppingCart;
 /**
  * класс автоматической генерации заказов в виде отдельного потока
  */
-public class Generate extends Thread {
-    private boolean work = true;
+public final class Generate extends Thread {
+    private volatile boolean work = true;
+    private volatile boolean wait = false;
     private long period;
     private Credentials user;
     private ShoppingCart<Drinks> cart;
@@ -34,6 +35,10 @@ public class Generate extends Thread {
         }
     }
 
+    public void setWait() {
+        wait = true;
+    }
+
     /**
      * метод работающий в потоке
      */
@@ -48,6 +53,15 @@ public class Generate extends Thread {
                 cart.add(new Tea());
 
                 orders.purchase(cart, user);
+            }
+            if (wait) {
+                try {
+                    synchronized (this) {
+                        wait();
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
             try {
                 sleep(period);

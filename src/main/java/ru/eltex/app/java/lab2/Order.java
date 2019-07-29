@@ -1,6 +1,7 @@
 package ru.eltex.app.java.lab2;
 
 import java.io.Serializable;
+import java.net.InetAddress;
 import java.sql.Date;
 import java.util.UUID;
 
@@ -14,6 +15,7 @@ public final class Order implements Serializable {
     private long diff;//время ожидания
     private ShoppingCart<?> cart;//Агрегация ссылка на ShoppingCart
     private Credentials credentials;//Агрегация ссылка на Credentials
+    private InetAddress address;//Адресс отправителя заказа
 
     public Order(ShoppingCart<?> cart, Credentials credentials) {
         this.id = UUID.randomUUID();
@@ -22,6 +24,17 @@ public final class Order implements Serializable {
         this.credentials = credentials;
         this.ordertime = new Date(System.currentTimeMillis());
         this.diff = (long) (Math.random() * 100);
+        this.address = InetAddress.getLoopbackAddress();
+    }
+
+    public Order(ShoppingCart<?> cart, Credentials credentials, InetAddress address) {
+        this.id = UUID.randomUUID();
+        this.status = OrderStatus.WAITING;
+        this.cart = cart;
+        this.credentials = credentials;
+        this.ordertime = new Date(System.currentTimeMillis());
+        this.diff = (long) (Math.random() * 100);
+        this.address = address;
     }
 
     public Order(UUID id, OrderStatus status, Date ordertime, long diff, ShoppingCart<?> cart, Credentials credentials) {
@@ -31,6 +44,7 @@ public final class Order implements Serializable {
         this.diff = diff;
         this.cart = cart;
         this.credentials = credentials;
+        this.address = InetAddress.getLoopbackAddress();
     }
 
     public UUID getId() {
@@ -59,6 +73,10 @@ public final class Order implements Serializable {
 
     public Credentials getCredentials() {
         return credentials;
+    }
+
+    public InetAddress getAddress() {
+        return address;
     }
 
     /**
