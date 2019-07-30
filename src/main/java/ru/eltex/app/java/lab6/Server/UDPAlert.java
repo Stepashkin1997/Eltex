@@ -9,17 +9,19 @@ import java.net.*;
 public final class UDPAlert extends Thread {
     private byte[] buf;//байтовый массив
     private volatile boolean work;
+    private final String ADDRESS;
 
-    public UDPAlert(Integer address) {
+    public UDPAlert(Integer address, String broadcast) {
         this.buf = address.toString().getBytes();
         this.work = true;
+        this.ADDRESS = broadcast;
     }
 
     /**
      * Выключение потока
      */
-    public void turnOff(){
-        work=false;
+    public void turnOff() {
+        work = false;
     }
 
     @Override
@@ -27,8 +29,8 @@ public final class UDPAlert extends Thread {
         super.run();
         while (work) {
             try (DatagramSocket socket = new DatagramSocket()) {
-                socket.send(new DatagramPacket(buf, buf.length, InetAddress.getByName("127.0.0.255"), 9999));
-                socket.send(new DatagramPacket(buf, buf.length, InetAddress.getByName("127.0.0.255"), 7777));
+                socket.send(new DatagramPacket(buf, buf.length, InetAddress.getByName(ADDRESS), 9999));
+                socket.send(new DatagramPacket(buf, buf.length, InetAddress.getByName(ADDRESS), 7777));
             } catch (SocketException e) {
                 e.printStackTrace();
             } catch (UnknownHostException e) {
