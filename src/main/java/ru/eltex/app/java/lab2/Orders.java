@@ -70,8 +70,8 @@ public final class Orders<T extends Order> implements Serializable {
      * @param credentials Данные пользователя
      * @param address     Адресс отправителя заказа
      */
-    public void purchase(ShoppingCart cart, Credentials credentials, InetAddress address) {
-        Order order = new Order(cart, credentials, address);
+    public void purchase(ShoppingCart cart, Credentials credentials, InetAddress address, int port) {
+        Order order = new Order(cart, credentials, address, port);
         list.add((T) order);
         createTime.put(order.getOrdertime(), (T) order);
     }
@@ -101,9 +101,9 @@ public final class Orders<T extends Order> implements Serializable {
             if (item.getStatus() == OrderStatus.WAITING) {
                 item.setStatus(OrderStatus.DONE);
                 try (DatagramSocket datagramSocket = new DatagramSocket()) {
-                    String str= String.valueOf(item.getDiff());
-                    byte[] buf=str.getBytes();
-                    datagramSocket.send(new DatagramPacket(buf, buf.length, item.getAddress(), 8888));
+                    String str = String.valueOf(item.getDiff());
+                    byte[] buf = str.getBytes();
+                    datagramSocket.send(new DatagramPacket(buf, buf.length, item.getAddress(), item.getPort()));
                 } catch (SocketException e) {
                     e.printStackTrace();
                 } catch (UnknownHostException e) {

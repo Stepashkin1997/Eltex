@@ -9,16 +9,23 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.*;
 
-
+/**
+ * Класс клиента для работы с сервером и заказами
+ */
 public final class ClientMain {
-    private int port;
-    private InetAddress address;
-    private Credentials user;
-    private Orders<?> orders;
+    private final int RECEIVEPORT = 9999;//Порт прослушивания основной
+    private final int RECEIVEPORTREST = 7777;//Порт прослушивания резервный
+    private int acceptport;//спободный порт для получения подтверждения
+    private int port;//порт на установку TCP соединения
+    private InetAddress address;//адресс отправки по TCP
+    private Credentials user;//информация о пользователе
+    private Orders<?> orders;//заказы
+    private DatagramSocket socket;
 
     private ClientMain(Credentials user, Orders<?> orders) {
         this.user = user;
         this.orders = orders;
+        this.acceptport = 0;
     }
 
     public static void main(String[] args) {
@@ -43,45 +50,66 @@ public final class ClientMain {
         }
     }
 
-
+    /**
+     *
+     * Получить порт на отправку
+     */
     public void udpReceivePort() {
-        try (DatagramSocket socket = new DatagramSocket(9999)) {
-            byte[] buf = new byte[255];
-            DatagramPacket packet = new DatagramPacket(buf, buf.length);
-            System.out.println("Ждем...");
-            socket.receive(packet);
-            System.out.println("Получили порт...");
-            String received = new String(packet.getData(), 0, packet.getLength());
-            port = Integer.parseInt(received);
-            address = packet.getAddress();
-            System.out.println(received);
+        byte[] buf = new byte[255];
+        DatagramPacket packet = new DatagramPacket(buf, buf.length);
+        try {
+            socket = new DatagramSocket(RECEIVEPORT);
         } catch (SocketException e) {
-            e.printStackTrace();
+            try {
+                socket = new DatagramSocket(RECEIVEPORTREST);
+            } catch (SocketException ex) {
+                ex.printStackTrace();
+            }
+        }
+        System.out.println("Ждем на порту " + socket.getLocalPort() + "...");
+        try {
+            socket.receive(packet);
         } catch (IOException e) {
             e.printStackTrace();
         }
+        socket.close();
+        System.out.println("Получили порт...");
+
+        String received = new String(packet.getData(), 0, packet.getLength());
+        port = Integer.parseInt(received);
+        address = packet.getAddress();
+        System.out.println(received);
     }
 
+    /**
+     * Получение подтверждения
+     */
     public void udpReceiveAccept() {
-        try (DatagramSocket socket = new DatagramSocket(8888)) {
-            byte[] buf = new byte[255];
-            DatagramPacket packet = new DatagramPacket(buf, buf.length);
-            System.out.println("Ждем подтверждение...");
+        byte[] buf = new byte[255];
+        DatagramPacket packet = new DatagramPacket(buf, buf.length);
+        try (DatagramSocket socket = new DatagramSocket(acceptport)) {
+            System.out.println("Ждем подтверждение на порту " + acceptport + "...");
             socket.receive(packet);
-            String received = new String(packet.getData(), 0, packet.getLength());
-            System.out.println("время обработки заказа:" + received);
-            System.out.println("Получили подтверждение...");
         } catch (SocketException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        String received = new String(packet.getData(), 0, packet.getLength());
+        System.out.println("время обработки заказа:" + received);
+        System.out.println("Получили подтверждение...");
     }
 
+    /**
+     * Отправить заказы по TCP
+     */
     public void sendTCP() {
         try (Socket socket = new Socket(address, port)) {
             ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
             outputStream.writeObject(orders);
+            outputStream.flush();
+            acceptport = socket.getLocalPort();
+            outputStream.writeInt(acceptport);
             outputStream.flush();
             System.out.println("отправили...");
         } catch (IOException e) {

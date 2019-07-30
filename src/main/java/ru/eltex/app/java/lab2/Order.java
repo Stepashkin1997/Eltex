@@ -16,6 +16,7 @@ public final class Order implements Serializable {
     private ShoppingCart<?> cart;//Агрегация ссылка на ShoppingCart
     private Credentials credentials;//Агрегация ссылка на Credentials
     private InetAddress address;//Адресс отправителя заказа
+    private int port;//Порт отправителя заказа
 
     public Order(ShoppingCart<?> cart, Credentials credentials) {
         this.id = UUID.randomUUID();
@@ -25,9 +26,10 @@ public final class Order implements Serializable {
         this.ordertime = new Date(System.currentTimeMillis());
         this.diff = (long) (Math.random() * 100);
         this.address = InetAddress.getLoopbackAddress();
+        this.port = 0;
     }
 
-    public Order(ShoppingCart<?> cart, Credentials credentials, InetAddress address) {
+    public Order(ShoppingCart<?> cart, Credentials credentials, InetAddress address, int port) {
         this.id = UUID.randomUUID();
         this.status = OrderStatus.WAITING;
         this.cart = cart;
@@ -35,6 +37,7 @@ public final class Order implements Serializable {
         this.ordertime = new Date(System.currentTimeMillis());
         this.diff = (long) (Math.random() * 100);
         this.address = address;
+        this.port = port;
     }
 
     public Order(UUID id, OrderStatus status, Date ordertime, long diff, ShoppingCart<?> cart, Credentials credentials) {
@@ -45,6 +48,7 @@ public final class Order implements Serializable {
         this.cart = cart;
         this.credentials = credentials;
         this.address = InetAddress.getLoopbackAddress();
+        this.port = 0;
     }
 
     public UUID getId() {
@@ -77,6 +81,10 @@ public final class Order implements Serializable {
 
     public InetAddress getAddress() {
         return address;
+    }
+
+    public int getPort() {
+        return port;
     }
 
     /**

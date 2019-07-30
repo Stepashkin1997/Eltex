@@ -7,7 +7,7 @@ import java.net.*;
  * Класс рассылающий номер порта для соединения TCP по UDP
  */
 public final class UDPAlert extends Thread {
-    private byte[] buf;
+    private byte[] buf;//байтовый массив
     private volatile boolean work;
 
     public UDPAlert(Integer address) {
@@ -27,7 +27,8 @@ public final class UDPAlert extends Thread {
         super.run();
         while (work) {
             try (DatagramSocket socket = new DatagramSocket()) {
-                socket.send(new DatagramPacket(buf, buf.length, InetAddress.getByName("255.255.255.255"), 9999));
+                socket.send(new DatagramPacket(buf, buf.length, InetAddress.getByName("127.0.0.255"), 9999));
+                socket.send(new DatagramPacket(buf, buf.length, InetAddress.getByName("127.0.0.255"), 7777));
             } catch (SocketException e) {
                 e.printStackTrace();
             } catch (UnknownHostException e) {

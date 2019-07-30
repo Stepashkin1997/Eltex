@@ -6,7 +6,8 @@
 
     <groupId>groupId</groupId>
     <artifactId>Eltex</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    <version>2.0-SNAPSHOT</version>
     <build>
         <plugins>
             <plugin>
@@ -15,6 +16,18 @@
                 <configuration>
                     <source>12</source>
                     <target>12</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>ru.eltex.app.java.lab6.Server.ServerMain</mainClass>
+                        </manifest>
+                    </archive>
                 </configuration>
             </plugin>
         </plugins>

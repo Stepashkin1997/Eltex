@@ -9,7 +9,13 @@ import java.net.ServerSocket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+
+/**
+ * Класс сервера для подключения клиентов
+ */
 public final class ServerMain {
+    private static final int PORT = 1111;//Порт для подключения по TCP
+
     public static void main(String[] args) {
         ExecutorService executeIt = Executors.newFixedThreadPool(2);
         Orders orders = new Orders();
@@ -24,9 +30,9 @@ public final class ServerMain {
             e.printStackTrace();
         }
         doneThread.start();
-        UDPAlert udpAlert = new UDPAlert(1111);
+        UDPAlert udpAlert = new UDPAlert(PORT);
         udpAlert.start();
-        try (ServerSocket serverSocket = new ServerSocket(1111)) {
+        try (ServerSocket serverSocket = new ServerSocket(PORT)) {
             while (true) {
                 executeIt.execute(new MainThread(orders, serverSocket.accept()));
             }
