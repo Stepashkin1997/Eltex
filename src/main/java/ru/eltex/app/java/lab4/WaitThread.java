@@ -8,7 +8,7 @@ import ru.eltex.app.java.lab2.Orders;
  * Если заказ обнаружен в этом состоянии, то меняется статус заказа на состояние «обработан».
  */
 public final class WaitThread extends ACheck {
-    private boolean work = true;
+    private volatile boolean work = true;
 
     public WaitThread(Orders<?> orders) {
         super(orders);

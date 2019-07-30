@@ -7,7 +7,7 @@ import ru.eltex.app.java.lab2.Orders;
  * Если заказ обнаружен в этом состоянии, заказ удаляется из списка.
  */
 public final class DoneThread extends ACheck {
-    private boolean work = true;
+    private volatile boolean work = true;
 
     public DoneThread(Orders<?> orders) {
         super(orders);

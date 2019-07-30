@@ -58,6 +58,7 @@ public final class Generate extends Thread {
                 try {
                     synchronized (this) {
                         wait();
+                        wait=false;
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();

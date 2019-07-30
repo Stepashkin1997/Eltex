@@ -7,12 +7,10 @@ import java.io.ObjectInputStream;
 import java.net.*;
 
 public final class MainThread implements Runnable {
-    private boolean work;
     private Socket socket;
     private Orders<?> orders;
 
     public MainThread(Orders<?> orders, Socket socket) {
-        this.work = true;
         this.orders = orders;
         this.socket = socket;
     }

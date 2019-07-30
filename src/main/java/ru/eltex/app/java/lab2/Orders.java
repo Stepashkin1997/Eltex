@@ -101,7 +101,9 @@ public final class Orders<T extends Order> implements Serializable {
             if (item.getStatus() == OrderStatus.WAITING) {
                 item.setStatus(OrderStatus.DONE);
                 try (DatagramSocket datagramSocket = new DatagramSocket()) {
-                    datagramSocket.send(new DatagramPacket(new byte[1], 1, item.getAddress(), 8888));
+                    String str= String.valueOf(item.getDiff());
+                    byte[] buf=str.getBytes();
+                    datagramSocket.send(new DatagramPacket(buf, buf.length, item.getAddress(), 8888));
                 } catch (SocketException e) {
                     e.printStackTrace();
                 } catch (UnknownHostException e) {

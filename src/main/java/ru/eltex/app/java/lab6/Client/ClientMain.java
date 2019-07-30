@@ -6,7 +6,6 @@ import ru.eltex.app.java.lab2.Orders;
 import ru.eltex.app.java.lab4.Generate;
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.*;
 
@@ -69,6 +68,8 @@ public final class ClientMain {
             DatagramPacket packet = new DatagramPacket(buf, buf.length);
             System.out.println("Ждем подтверждение...");
             socket.receive(packet);
+            String received = new String(packet.getData(), 0, packet.getLength());
+            System.out.println("время обработки заказа:" + received);
             System.out.println("Получили подтверждение...");
         } catch (SocketException e) {
             e.printStackTrace();

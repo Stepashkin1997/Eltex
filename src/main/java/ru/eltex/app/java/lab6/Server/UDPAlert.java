@@ -8,13 +8,16 @@ import java.net.*;
  */
 public final class UDPAlert extends Thread {
     private byte[] buf;
-    private boolean work;
+    private volatile boolean work;
 
     public UDPAlert(Integer address) {
         this.buf = address.toString().getBytes();
         this.work = true;
     }
 
+    /**
+     * Выключение потока
+     */
     public void turnOff(){
         work=false;
     }
