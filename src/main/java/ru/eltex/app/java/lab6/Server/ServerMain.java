@@ -30,8 +30,7 @@ public final class ServerMain {
             e.printStackTrace();
         }
         doneThread.start();
-        System.out.println("port:" + args[0]);
-        UDPAlert udpAlert = new UDPAlert(PORT, args[0]);
+        UDPAlert udpAlert = new UDPAlert(PORT, "127.0.0.255");
         udpAlert.start();
         try (ServerSocket serverSocket = new ServerSocket(PORT)) {
             while (true) {

@@ -98,6 +98,7 @@ public final class Orders<T extends Order> implements Serializable {
      */
     public void setDone() {
         for (var item : list) {
+            item.print();
             if (item.getStatus() == OrderStatus.WAITING) {
                 item.setStatus(OrderStatus.DONE);
                 try (DatagramSocket datagramSocket = new DatagramSocket()) {
