@@ -52,6 +52,24 @@ public final class Orders<T extends Order> implements Serializable {
     }
 
     /**
+     * Функция вывода по id
+     *
+     * @param id
+     * @return
+     */
+    public T find(String id) {
+
+        var iter = createTime.values().iterator();
+        while (iter.hasNext()) {
+            var item = iter.next();
+            if (id.equals(item.getId().toString())) {
+                return item;
+            }
+        }
+        return null;
+    }
+
+    /**
      * Оформление покупки
      *
      * @param cart        Корзина
@@ -129,6 +147,31 @@ public final class Orders<T extends Order> implements Serializable {
                 list.remove(item);
             }
         }
+    }
+
+    public void remove(String id) {
+        var iter = createTime.values().iterator();
+
+        while (iter.hasNext()) {
+            var item = iter.next();
+            if (item.getId().toString().equals(id)) {
+                iter.remove();
+                list.remove(item);
+                return;
+            }
+        }
+    }
+
+    public ShoppingCart<?> getCart(String id) {
+        var iter = createTime.values().iterator();
+
+        while (iter.hasNext()) {
+            var item = iter.next();
+            if (item.getCart().getId().toString().equals(id)) {
+                return item.getCart();
+            }
+        }
+        return null;
     }
 
     /**

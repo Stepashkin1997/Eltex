@@ -3,51 +3,62 @@ package ru.eltex.app.java.lab7.controllers;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.apache.log4j.Logger;
-import org.springframework.stereotype.Controller;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import ru.eltex.app.java.lab1.Coffee;
 import ru.eltex.app.java.lab1.Drinks;
+import ru.eltex.app.java.lab2.Credentials;
 import ru.eltex.app.java.lab2.Order;
 import ru.eltex.app.java.lab2.Orders;
+import ru.eltex.app.java.lab2.ShoppingCart;
 import ru.eltex.app.java.lab5.DrinksDeserializer;
 import ru.eltex.app.java.lab5.OrderDeserializer;
 import ru.eltex.app.java.lab5.OrdersDeserializer;
 import ru.eltex.app.java.lab5.OrdersSerializer;
 
-@Controller
+@RestController
 public class MyController {
     private static final Logger logger = Logger.getLogger(MyController.class);
     private final Gson gson = new GsonBuilder().registerTypeAdapter(Order.class, new OrderDeserializer())
             .registerTypeAdapter(Orders.class, new OrdersSerializer())
             .registerTypeAdapter(Orders.class, new OrdersDeserializer())
             .registerTypeAdapter(Drinks.class, new DrinksDeserializer()).setPrettyPrinting().create();
+    private Orders<?> orders;
+    private Credentials credentials;
+
+    @Autowired
+    public MyController(Orders<?> orders, Credentials credentials) {
+        this.orders = orders;
+        this.credentials = credentials;
+    }
 
     @RequestMapping(method = RequestMethod.GET, params = "command=readall")
-    @ResponseBody
     public String readall() {
-        return "readall";
+        logger.info("readall");
+        return gson.toJson(orders);
     }
 
     @RequestMapping(method = RequestMethod.GET, params = "command=readById")
-    @ResponseBody
-    public String readById(int order_id) {
-        String A = gson.toJson(order);
-        return A;
+    public String readById(String order_id) {
+        logger.info("readById");
+        return gson.toJson(orders.find(order_id));
     }
 
     @RequestMapping(method = RequestMethod.GET, params = "command=addToCard")
-    @ResponseBody
-    public String addToCard(int card_id) {
-        Coffee coffee = new Coffee();
+    public String addToCard(String card_id) {
+        logger.info("addToCard");
+        Drinks coffee = new Coffee();
+        ShoppingCart<?> cart = orders.getCart(card_id);
+        //cart.add(coffee);
+        orders.purchase((ShoppingCart<Drinks>) orders.getCart(card_id), credentials);
         return String.valueOf(coffee.getId());
     }
 
-
     @RequestMapping(method = RequestMethod.GET, params = "command=delById")
-    @ResponseBody
-    public String delById(int order_id) {
+    public String delById(String order_id) {
+        logger.info("delById");
         return "delById";
     }
 }

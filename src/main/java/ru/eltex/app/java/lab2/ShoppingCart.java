@@ -9,19 +9,27 @@ import java.util.UUID;
 
 /**
  * класс коллекция корзина
+ *
  * @param <T> extends Drinks
  */
 public final class ShoppingCart<T extends Drinks> implements Serializable {
+    private UUID id;//id
     private ArrayList<T> list;//Коллекция для хранения объектов в классе «корзина»
     private HashSet<UUID> setId;//Коллекция для хранения и поиска уникальных идентификаторов
 
     public ShoppingCart() {
-        list = new ArrayList();
-        setId= new HashSet<>();
+        this.id = UUID.randomUUID();
+        this.list = new ArrayList();
+        this.setId = new HashSet<>();
+    }
+
+    public UUID getId() {
+        return id;
     }
 
     /**
      * метод добавления объекта из коллекции
+     *
      * @param drink
      */
     public void add(T drink) {
@@ -31,6 +39,7 @@ public final class ShoppingCart<T extends Drinks> implements Serializable {
 
     /**
      * метод удаления объекта из коллекции
+     *
      * @param drink
      */
     public void delete(T drink) {
@@ -49,6 +58,7 @@ public final class ShoppingCart<T extends Drinks> implements Serializable {
 
     /**
      * функция поиска по индефикатору
+     *
      * @param id id который проверяем
      * @return есть ли id в коллекции
      */
