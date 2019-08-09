@@ -1,4 +1,4 @@
-package ru.eltex.app.java.lab7.Exception;
+package ru.eltex.app.java.lab7.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

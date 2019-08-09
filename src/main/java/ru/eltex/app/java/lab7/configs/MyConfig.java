@@ -1,4 +1,4 @@
-package ru.eltex.app.java.lab7.config;
+package ru.eltex.app.java.lab7.configs;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

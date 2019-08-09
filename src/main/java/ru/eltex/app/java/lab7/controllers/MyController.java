@@ -4,13 +4,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.eltex.app.java.lab1.Coffee;
 import ru.eltex.app.java.lab1.Drinks;
-import ru.eltex.app.java.lab2.Credentials;
 import ru.eltex.app.java.lab2.Order;
 import ru.eltex.app.java.lab2.Orders;
 import ru.eltex.app.java.lab2.ShoppingCart;
@@ -18,8 +15,6 @@ import ru.eltex.app.java.lab5.DrinksDeserializer;
 import ru.eltex.app.java.lab5.OrderDeserializer;
 import ru.eltex.app.java.lab5.OrdersDeserializer;
 import ru.eltex.app.java.lab5.OrdersSerializer;
-
-import java.io.IOException;
 
 @RestController
 public class MyController {
@@ -29,27 +24,25 @@ public class MyController {
             .registerTypeAdapter(Orders.class, new OrdersDeserializer())
             .registerTypeAdapter(Drinks.class, new DrinksDeserializer()).setPrettyPrinting().create();
     private Orders<?> orders;
-    private Credentials credentials;
 
     @Autowired
-    public MyController(Orders<?> orders, Credentials credentials) {
+    public MyController(Orders<?> orders) {
         this.orders = orders;
-        this.credentials = credentials;
     }
 
-    @RequestMapping(method = RequestMethod.GET, params = "command=readall")
+    @GetMapping(params = "command=readall")
     public String readall() {
         logger.info("readall");
         return gson.toJson(orders);
     }
 
-    @RequestMapping(method = RequestMethod.GET, params = "command=readById")
+    @GetMapping(params = "command=readById")
     public String readById(String order_id) {
         logger.info("readById");
         return gson.toJson(orders.find(order_id));
     }
 
-    @RequestMapping(method = RequestMethod.GET, params = "command=addToCard")
+    @GetMapping(params = "command=addToCard")
     public String addToCard(String card_id) {
         logger.info("addToCard");
         Drinks coffee = new Coffee();
@@ -58,12 +51,12 @@ public class MyController {
         return coffee.getId().toString();
     }
 
-    @RequestMapping(method = RequestMethod.GET, params = "command=delById")
+    @GetMapping(params = "command=delById")
     public String delById(String order_id) {
         logger.info("delById");
         Order order = orders.find(order_id);
         if (order == null) {
-            throw new NullPointerException("id is null");
+            throw new NullPointerException();
         }
         orders.remove(order_id);
         return "0";
