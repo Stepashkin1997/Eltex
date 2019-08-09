@@ -1,3 +1,33 @@
-apply plugin: 'idea'
-//and standard one
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.1.6.RELEASE")
+    }
+}
+
 apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+bootJar {
+    baseName = 'gs-spring-boot'
+    version =  '0.1.0'
+}
+
+repositories {
+    mavenCentral()
+}
+
+sourceCompatibility = 12
+targetCompatibility = 12
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-web")
+    compile group: 'com.google.code.gson', name: 'gson', version: '2.8.5'
+    compile group: 'org.springframework.boot', name: 'spring-boot-gradle-plugin', version: '2.1.6.RELEASE'
+    compile group: 'log4j', name: 'log4j', version: '1.2.16'
+    testCompile("junit:junit")
+}

@@ -2,3 +2,6 @@
 Eltex.iml
 out/
 .gradle/
+gradle/
+gradlew
+gradlew.bat
