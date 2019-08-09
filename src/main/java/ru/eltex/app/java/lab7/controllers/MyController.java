@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,6 +18,8 @@ import ru.eltex.app.java.lab5.DrinksDeserializer;
 import ru.eltex.app.java.lab5.OrderDeserializer;
 import ru.eltex.app.java.lab5.OrdersDeserializer;
 import ru.eltex.app.java.lab5.OrdersSerializer;
+
+import java.io.IOException;
 
 @RestController
 public class MyController {
@@ -50,15 +53,19 @@ public class MyController {
     public String addToCard(String card_id) {
         logger.info("addToCard");
         Drinks coffee = new Coffee();
-        ShoppingCart<?> cart = orders.getCart(card_id);
-        //cart.add(coffee);
-        orders.purchase((ShoppingCart<Drinks>) orders.getCart(card_id), credentials);
-        return String.valueOf(coffee.getId());
+        ShoppingCart<Drinks> cart = (ShoppingCart<Drinks>) orders.getCart(card_id);
+        cart.add(coffee);
+        return coffee.getId().toString();
     }
 
     @RequestMapping(method = RequestMethod.GET, params = "command=delById")
     public String delById(String order_id) {
         logger.info("delById");
-        return "delById";
+        Order order = orders.find(order_id);
+        if (order == null) {
+            throw new NullPointerException("id is null");
+        }
+        orders.remove(order_id);
+        return "0";
     }
 }
