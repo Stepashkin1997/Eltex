@@ -1,5 +1,7 @@
 package ru.eltex.app.java.lab1;
 
+import ru.eltex.app.java.lab2.ShoppingCart;
+
 import javax.persistence.*;
 import java.io.IOException;
 import java.io.Serializable;
@@ -16,6 +18,10 @@ public abstract class Drinks implements ICrudAction, Serializable {
     private double coast;//Цена
     private StringBuilder company;//Фирма поставщик
     private StringBuilder developer;//Страна производитель
+
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = ShoppingCart.class)
+    @JoinColumn(name = "fk_id")
+    private ShoppingCart<?> cart;//Агрегация ссылка на ShoppingCart
 
     static int count = 0;//счетчик объектов
 

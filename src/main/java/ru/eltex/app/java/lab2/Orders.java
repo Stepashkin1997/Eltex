@@ -62,7 +62,7 @@ public final class Orders<T extends Order> implements Serializable {
         var iter = createTime.values().iterator();
         while (iter.hasNext()) {
             var item = iter.next();
-            if (id.equals(item.getId().toString())) {
+            if (id.equals(item.getOrder_id().toString())) {
                 return item;
             }
         }
@@ -119,7 +119,7 @@ public final class Orders<T extends Order> implements Serializable {
             item.print();
             if (item.getStatus() == OrderStatus.WAITING) {
                 item.setStatus(OrderStatus.DONE);
-                try (DatagramSocket datagramSocket = new DatagramSocket()) {
+             /*   try (DatagramSocket datagramSocket = new DatagramSocket()) {
                     String str = String.valueOf(item.getDiff());
                     byte[] buf = str.getBytes();
                     datagramSocket.send(new DatagramPacket(buf, buf.length, item.getAddress(), item.getPort()));
@@ -129,7 +129,7 @@ public final class Orders<T extends Order> implements Serializable {
                     e.printStackTrace();
                 } catch (IOException e) {
                     e.printStackTrace();
-                }
+                }*/
             }
         }
     }
@@ -154,7 +154,7 @@ public final class Orders<T extends Order> implements Serializable {
 
         while (iter.hasNext()) {
             var item = iter.next();
-            if (item.getId().toString().equals(id)) {
+            if (item.getOrder_id().toString().equals(id)) {
                 iter.remove();
                 list.remove(item);
                 return;
@@ -167,7 +167,7 @@ public final class Orders<T extends Order> implements Serializable {
 
         while (iter.hasNext()) {
             var item = iter.next();
-            if (item.getCart().getId().toString().equals(id)) {
+            if (item.getCart().getCart_id().toString().equals(id)) {
                 return item.getCart();
             }
         }

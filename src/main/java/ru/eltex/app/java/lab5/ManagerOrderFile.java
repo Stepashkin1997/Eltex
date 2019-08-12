@@ -25,7 +25,7 @@ public final class ManagerOrderFile extends AManageOrder {
             }
             order = (Order) objectInputStream.readObject();
 
-            if (!order.getId().equals(id)) {
+            if (!order.getOrder_id().equals(id)) {
                 order = null;
             }
         } catch (Exception e1) {

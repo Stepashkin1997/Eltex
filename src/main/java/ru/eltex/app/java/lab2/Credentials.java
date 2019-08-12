@@ -1,9 +1,9 @@
 package ru.eltex.app.java.lab2;
 
 import javax.persistence.*;
-
-
 import java.io.Serializable;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -13,9 +13,9 @@ import java.util.UUID;
 @Table(name = "Credentials")
 public class Credentials implements Serializable {
 
-    @Column(name = "id")
+    @Column(name = "cred_id")
     @Id
-    private UUID id;//ID
+    private UUID cred_id;//ID
 
     @Column(name = "name")
     private StringBuilder name;//Имя
@@ -29,11 +29,14 @@ public class Credentials implements Serializable {
     @Column(name = "email")
     private StringBuilder email;//Почта
 
+    @OneToMany(mappedBy = "credentials", targetEntity = Order.class)
+    private List<Order> orders = new LinkedList<>();
+
     public Credentials() {
     }
 
     public Credentials(StringBuilder name, StringBuilder surname, StringBuilder thirdname, StringBuilder email) {
-        this.id = UUID.randomUUID();
+        this.cred_id = UUID.randomUUID();
         this.name = name;
         this.surname = surname;
         this.thirdname = thirdname;
@@ -41,7 +44,7 @@ public class Credentials implements Serializable {
     }
 
     public Credentials(String name, String surname, String thirdname, String email) {
-        this.id = UUID.randomUUID();
+        this.cred_id = UUID.randomUUID();
         this.name = new StringBuilder(name);
         this.surname = new StringBuilder(surname);
         this.thirdname = new StringBuilder(thirdname);
@@ -49,11 +52,11 @@ public class Credentials implements Serializable {
     }
 
     public UUID getId() {
-        return id;
+        return cred_id;
     }
 
     public void setId(UUID id) {
-        this.id = id;
+        this.cred_id = id;
     }
 
     public StringBuilder getName() {

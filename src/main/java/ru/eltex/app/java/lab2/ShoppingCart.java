@@ -1,30 +1,40 @@
 package ru.eltex.app.java.lab2;
 
+import org.hibernate.annotations.Type;
 import ru.eltex.app.java.lab1.Drinks;
 
+import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * класс коллекция корзина
  *
  * @param <T> extends Drinks
  */
+@Entity
 public final class ShoppingCart<T extends Drinks> implements Serializable {
-    private UUID id;//id
-    private ArrayList<T> list;//Коллекция для хранения объектов в классе «корзина»
+    @Id
+    @Column(name = "cart_id")
+    private UUID cart_id;//id
+
+    @Type(type = "ru.eltex.app.java.lab1.Drinks")
+    @OneToMany(mappedBy = "cart", targetEntity = Drinks.class)
+    private List<T> list= new ArrayList();//Коллекция для хранения объектов в классе «корзина»
+
+    @Transient
     private HashSet<UUID> setId;//Коллекция для хранения и поиска уникальных идентификаторов
 
+    @OneToMany(mappedBy = "cart", targetEntity = Order.class)
+    private List<Order> orders = new LinkedList();
+
     public ShoppingCart() {
-        this.id = UUID.randomUUID();
-        this.list = new ArrayList();
+        this.cart_id = UUID.randomUUID();
         this.setId = new HashSet<>();
     }
 
-    public UUID getId() {
-        return id;
+    public UUID getCart_id() {
+        return cart_id;
     }
 
     /**

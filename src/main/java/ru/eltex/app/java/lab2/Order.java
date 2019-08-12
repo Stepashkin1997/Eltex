@@ -1,5 +1,6 @@
 package ru.eltex.app.java.lab2;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.net.InetAddress;
 import java.sql.Date;
@@ -8,15 +9,30 @@ import java.util.UUID;
 /**
  * класс заказ
  */
+@Entity
+@Table(name = "`Order`")
 public final class Order implements Serializable {
+    @Id
     private UUID id;//id для заказа
+
+    @Enumerated(EnumType.STRING)
     private OrderStatus status;//статус заказа
     private Date ordertime;//время покупки
     private long diff;//время ожидания
+
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = ShoppingCart.class)
+    @JoinColumn(name = "id_cart")
     private ShoppingCart<?> cart;//Агрегация ссылка на ShoppingCart
+
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Credentials.class)
+    @JoinColumn(name = "id_credentials")
     private Credentials credentials;//Агрегация ссылка на Credentials
+
     private InetAddress address;//Адресс отправителя заказа
     private int port;//Порт отправителя заказа
+
+    public Order() {
+    }
 
     public Order(ShoppingCart<?> cart, Credentials credentials) {
         this.id = UUID.randomUUID();
@@ -51,7 +67,7 @@ public final class Order implements Serializable {
         this.port = 0;
     }
 
-    public UUID getId() {
+    public UUID getOrder_id() {
         return id;
     }
 
