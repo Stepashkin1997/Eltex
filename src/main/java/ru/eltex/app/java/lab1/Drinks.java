@@ -1,11 +1,16 @@
 package ru.eltex.app.java.lab1;
 
+import javax.persistence.*;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Scanner;
 import java.util.UUID;
 
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+@Table(name = "Drinks")
 public abstract class Drinks implements ICrudAction, Serializable {
+    @Id
     private UUID id;//id товара
     private StringBuilder name;//Название
     private double coast;//Цена

@@ -15,6 +15,7 @@ import ru.eltex.app.java.lab5.DrinksDeserializer;
 import ru.eltex.app.java.lab5.OrderDeserializer;
 import ru.eltex.app.java.lab5.OrdersDeserializer;
 import ru.eltex.app.java.lab5.OrdersSerializer;
+import ru.eltex.app.java.lab7.repositories.CredentialsRepository;
 
 @RestController
 public class MyController {
@@ -24,6 +25,8 @@ public class MyController {
             .registerTypeAdapter(Orders.class, new OrdersDeserializer())
             .registerTypeAdapter(Drinks.class, new DrinksDeserializer()).setPrettyPrinting().create();
     private Orders<?> orders;
+    @Autowired
+    private CredentialsRepository credentialsRepository;
 
     @Autowired
     public MyController(Orders<?> orders) {

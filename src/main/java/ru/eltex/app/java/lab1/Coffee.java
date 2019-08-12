@@ -1,19 +1,23 @@
 package ru.eltex.app.java.lab1;
 
+import javax.persistence.Entity;
 import java.io.IOException;
 import java.util.Scanner;
 
+@Entity
 public final class Coffee extends Drinks {
     private StringBuilder typecofee;//вид кофейных зёрен (арабика, робуста)
 
     /**
-     * конструктор по умолчанию*/
+     * конструктор по умолчанию
+     */
     public Coffee() {
     }
 
 
     /**
      * перегруженный конструктор
+     *
      * @param name
      * @param coast
      * @param company
@@ -23,6 +27,14 @@ public final class Coffee extends Drinks {
     public Coffee(String name, double coast, String company, String developer, String typecofee) {
         super(new StringBuilder(name), coast, new StringBuilder(company), new StringBuilder(developer));
         this.typecofee = new StringBuilder(typecofee);
+    }
+
+    public StringBuilder getTypecofee() {
+        return typecofee;
+    }
+
+    public void setTypecofee(StringBuilder typecofee) {
+        this.typecofee = typecofee;
     }
 
     /**
@@ -45,6 +57,7 @@ public final class Coffee extends Drinks {
 
     /**
      * ввод данных с клавиатуры
+     *
      * @throws IOException не корректный ввод
      */
     @Override

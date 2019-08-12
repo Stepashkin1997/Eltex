@@ -1,18 +1,36 @@
 package ru.eltex.app.java.lab2;
 
+import javax.persistence.*;
+
+
 import java.io.Serializable;
-import java.net.InetAddress;
 import java.util.UUID;
 
 /**
  * класс для хранения и обработки персональных данных пользователей
  */
-public final class Credentials implements Serializable {
+@Entity
+@Table(name = "Credentials")
+public class Credentials implements Serializable {
+
+    @Column(name = "id")
+    @Id
     private UUID id;//ID
+
+    @Column(name = "name")
     private StringBuilder name;//Имя
+
+    @Column(name = "surname")
     private StringBuilder surname;//Фамилия
+
+    @Column(name = "thirdname")
     private StringBuilder thirdname;//Отчетсво
+
+    @Column(name = "email")
     private StringBuilder email;//Почта
+
+    public Credentials() {
+    }
 
     public Credentials(StringBuilder name, StringBuilder surname, StringBuilder thirdname, StringBuilder email) {
         this.id = UUID.randomUUID();
@@ -34,32 +52,36 @@ public final class Credentials implements Serializable {
         return id;
     }
 
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
     public StringBuilder getName() {
         return name;
-    }
-
-    public StringBuilder getSurname() {
-        return surname;
-    }
-
-    public StringBuilder getThirdname() {
-        return thirdname;
-    }
-
-    public StringBuilder getEmail() {
-        return email;
     }
 
     public void setName(StringBuilder name) {
         this.name = name;
     }
 
+    public StringBuilder getSurname() {
+        return surname;
+    }
+
     public void setSurname(StringBuilder surname) {
         this.surname = surname;
     }
 
+    public StringBuilder getThirdname() {
+        return thirdname;
+    }
+
     public void setThirdname(StringBuilder thirdname) {
         this.thirdname = thirdname;
+    }
+
+    public StringBuilder getEmail() {
+        return email;
     }
 
     public void setEmail(StringBuilder email) {

@@ -173,13 +173,4 @@ public final class Orders<T extends Order> implements Serializable {
         }
         return null;
     }
-
-    /**
-     * возвращает первый элемент из коллекции list
-     *
-     * @return T-параметр
-     */
-    public T getFirstOrder() {
-        return list.getFirst();
-    }
 }

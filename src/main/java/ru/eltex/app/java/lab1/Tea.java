@@ -1,8 +1,10 @@
 package ru.eltex.app.java.lab1;
 
+import javax.persistence.Entity;
 import java.io.IOException;
 import java.util.Scanner;
 
+@Entity
 public final class Tea extends Drinks {
     private StringBuilder typebox;//Вид упаковки
 
@@ -14,6 +16,7 @@ public final class Tea extends Drinks {
 
     /**
      * перегруженный конструктор
+     *
      * @param name
      * @param coast
      * @param company
@@ -45,6 +48,7 @@ public final class Tea extends Drinks {
 
     /**
      * ввод данных с клавиатуры
+     *
      * @throws IOException
      */
     @Override
