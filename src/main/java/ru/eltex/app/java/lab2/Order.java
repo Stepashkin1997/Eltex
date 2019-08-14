@@ -11,7 +11,7 @@ import java.util.UUID;
  */
 @Entity
 @Table(name = "`Order`")
-public final class Order implements Serializable {
+public class Order implements Serializable {
     @Id
     private UUID id;//id для заказа
 

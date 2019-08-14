@@ -10,7 +10,7 @@ import ru.eltex.app.java.lab2.ShoppingCart;
 
 @Configuration
 public class MyConfig {
-    @Bean("Orders")
+/*    @Bean("Orders")
     public Orders<Order> getOrders() {
         return new Orders<Order>();
     }
@@ -28,5 +28,5 @@ public class MyConfig {
     @Bean("Cart2")
     public ShoppingCart<Drinks> getShoppingCart2() {
         return new ShoppingCart<Drinks>();
-    }
+    }*/
 }

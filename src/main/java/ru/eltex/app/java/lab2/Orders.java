@@ -1,11 +1,12 @@
 package ru.eltex.app.java.lab2;
 
-import java.io.IOException;
 import java.io.Serializable;
-import java.net.*;
+import java.net.InetAddress;
 import java.sql.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -14,8 +15,8 @@ import java.util.LinkedList;
  * @param <T> extends Order
  */
 public final class Orders<T extends Order> implements Serializable {
-    private LinkedList<T> list;//Коллекция для хранения объектов в классе «заказы»
-    private HashMap<Date, T> createTime;//Коллекция для хранения объектов по времени создания
+    private List<T> list;//Коллекция для хранения объектов в классе «заказы»
+    private Map<Date, T> createTime;//Коллекция для хранения объектов по времени создания
 
     public Orders() {
         list = new LinkedList();
@@ -27,11 +28,19 @@ public final class Orders<T extends Order> implements Serializable {
         this.createTime = createTime;
     }
 
-    public LinkedList<T> getList() {
+    public Orders(List<T> list) {
+        this.list = list;
+        this.createTime = new HashMap();
+        for (var item : list) {
+            createTime.put(item.getOrdertime(), item);
+        }
+    }
+
+    public List<T> getList() {
         return list;
     }
 
-    public HashMap<Date, T> getCreateTime() {
+    public Map<Date, T> getCreateTime() {
         return createTime;
     }
 

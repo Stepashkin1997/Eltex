@@ -38,6 +38,16 @@ public abstract class Drinks implements ICrudAction, Serializable {
     }
 
 
+    public Drinks(ShoppingCart<?> cart) {
+        this.id = UUID.randomUUID();
+        this.name = new StringBuilder("");
+        this.coast = 0;
+        this.company = new StringBuilder("");
+        this.developer = new StringBuilder("");
+        this.cart = cart;
+        count++;
+    }
+
     /**
      * перегруженный конструктор
      *

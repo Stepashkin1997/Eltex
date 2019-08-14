@@ -15,7 +15,10 @@ import ru.eltex.app.java.lab5.DrinksDeserializer;
 import ru.eltex.app.java.lab5.OrderDeserializer;
 import ru.eltex.app.java.lab5.OrdersDeserializer;
 import ru.eltex.app.java.lab5.OrdersSerializer;
-import ru.eltex.app.java.lab7.repositories.CredentialsRepository;
+import ru.eltex.app.java.lab8.repositories.CredentialsRepository;
+import ru.eltex.app.java.lab8.repositories.OrderRepository;
+import ru.eltex.app.java.lab8.services.DrinksService;
+import ru.eltex.app.java.lab8.services.OrderService;
 
 @RestController
 public class MyController {
@@ -24,44 +27,40 @@ public class MyController {
             .registerTypeAdapter(Orders.class, new OrdersSerializer())
             .registerTypeAdapter(Orders.class, new OrdersDeserializer())
             .registerTypeAdapter(Drinks.class, new DrinksDeserializer()).setPrettyPrinting().create();
-    private Orders<?> orders;
-    @Autowired
-    private CredentialsRepository credentialsRepository;
 
     @Autowired
-    public MyController(Orders<?> orders) {
-        this.orders = orders;
-    }
+    private OrderService orderService;
+    @Autowired
+    private DrinksService drinksService;
 
     @GetMapping(params = "command=readall")
     public String readall() {
         logger.info("readall");
-        return gson.toJson(orders);
+        return gson.toJson(orderService.readall());
     }
 
     @GetMapping(params = "command=readById")
     public String readById(String order_id) {
         logger.info("readById");
-        return gson.toJson(orders.find(order_id));
+        return gson.toJson(orderService.readById(order_id));
     }
 
     @GetMapping(params = "command=addToCard")
     public String addToCard(String card_id) {
         logger.info("addToCard");
         Drinks coffee = new Coffee();
-        ShoppingCart<Drinks> cart = (ShoppingCart<Drinks>) orders.getCart(card_id);
-        cart.add(coffee);
+        drinksService.addToCard(coffee);
         return coffee.getId().toString();
     }
 
     @GetMapping(params = "command=delById")
     public String delById(String order_id) {
         logger.info("delById");
-        Order order = orders.find(order_id);
+        Order order = orderService.readById(order_id);
         if (order == null) {
             throw new NullPointerException();
         }
-        orders.remove(order_id);
+        orderService.delete(order);
         return "0";
     }
 }
