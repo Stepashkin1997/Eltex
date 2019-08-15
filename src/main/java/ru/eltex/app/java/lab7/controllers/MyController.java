@@ -4,10 +4,13 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.eltex.app.java.lab1.Coffee;
 import ru.eltex.app.java.lab1.Drinks;
+import ru.eltex.app.java.lab1.Tea;
+import ru.eltex.app.java.lab2.Credentials;
 import ru.eltex.app.java.lab2.Order;
 import ru.eltex.app.java.lab2.Orders;
 import ru.eltex.app.java.lab2.ShoppingCart;
@@ -17,6 +20,7 @@ import ru.eltex.app.java.lab5.OrdersDeserializer;
 import ru.eltex.app.java.lab5.OrdersSerializer;
 import ru.eltex.app.java.lab8.repositories.CredentialsRepository;
 import ru.eltex.app.java.lab8.repositories.OrderRepository;
+import ru.eltex.app.java.lab8.repositories.ShoppingCartRepository;
 import ru.eltex.app.java.lab8.services.DrinksService;
 import ru.eltex.app.java.lab8.services.OrderService;
 
@@ -26,17 +30,23 @@ public class MyController {
     private final Gson gson = new GsonBuilder().registerTypeAdapter(Order.class, new OrderDeserializer())
             .registerTypeAdapter(Orders.class, new OrdersSerializer())
             .registerTypeAdapter(Orders.class, new OrdersDeserializer())
-            .registerTypeAdapter(Drinks.class, new DrinksDeserializer()).setPrettyPrinting().create();
+            .registerTypeAdapter(Drinks.class, new DrinksDeserializer()).excludeFieldsWithoutExposeAnnotation ()
+            .setPrettyPrinting().create();
 
     @Autowired
     private OrderService orderService;
     @Autowired
     private DrinksService drinksService;
+    @Autowired
+    private ShoppingCartRepository shoppingCartRepository;
+    @Autowired
+    private CredentialsRepository credentialsRepository;
 
     @GetMapping(params = "command=readall")
     public String readall() {
         logger.info("readall");
-        return gson.toJson(orderService.readall());
+        var A=orderService.readall();
+        return gson.toJson(A);
     }
 
     @GetMapping(params = "command=readById")
@@ -62,5 +72,36 @@ public class MyController {
         }
         orderService.delete(order);
         return "0";
+    }
+
+    @GetMapping("/purchase")
+    public String purchase() {
+        Credentials user1 = new Credentials("Lol", "Kekovich", "Azaza", "123@ololo.ua");
+        Credentials user2 = new Credentials("Kek", "Lolovich", "Azaza", "123@ololo.ua");
+        credentialsRepository.saveAndFlush(user1);
+        credentialsRepository.saveAndFlush(user2);
+
+        ShoppingCart cartuser1 = new ShoppingCart();//Создание корзины
+        ShoppingCart cartuser2 = new ShoppingCart();//Создание корзины
+        shoppingCartRepository.saveAndFlush(cartuser1);
+        shoppingCartRepository.saveAndFlush(cartuser2);
+
+        Coffee coffee = new Coffee("A", 123, "IBM", "Eltex", "Arabic", cartuser1);
+        drinksService.addToCard(coffee);
+        drinksService.addToCard(new Coffee("B", 321, "IBM", "Eltex", "Arabic",
+                cartuser1));
+
+        drinksService.addToCard(new Tea("C", 456, "IBM", "Eltex", "Pacet", cartuser2));
+        drinksService.addToCard(new Tea("D", 654, "IBM", "Eltex", "Pacet", cartuser2));
+
+        orderService.add(new Order(cartuser1, user1));
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        orderService.add(new Order(cartuser2, user2));
+
+        return "DONE";
     }
 }

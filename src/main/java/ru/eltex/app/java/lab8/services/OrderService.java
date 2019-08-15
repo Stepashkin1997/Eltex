@@ -19,10 +19,14 @@ public class OrderService {
     }
 
     public Order readById(String order_id) {
-        return orderRepository.getOne(UUID.fromString(order_id));
+        return orderRepository.getOne(order_id);
     }
 
     public void delete(Order order) {
         orderRepository.delete(order);
+    }
+
+    public void add(Order order) {
+        orderRepository.saveAndFlush(order);
     }
 }

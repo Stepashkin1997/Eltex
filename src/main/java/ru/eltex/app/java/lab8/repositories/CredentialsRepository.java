@@ -8,6 +8,6 @@ import ru.eltex.app.java.lab2.Credentials;
 import java.util.UUID;
 
 @Repository
-public interface CredentialsRepository extends JpaRepository<Credentials, UUID> {
+public interface CredentialsRepository extends JpaRepository<Credentials, String> {
 
 }

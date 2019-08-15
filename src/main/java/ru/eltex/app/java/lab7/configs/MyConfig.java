@@ -20,6 +20,11 @@ public class MyConfig {
         return new Credentials("Lol", "Kekovich", "Azaza", "123@ololo.ua");
     }
 
+    @Bean("Credentials1")
+    public Credentials getCredentials1() {
+        return new Credentials("Kek", "Lolovich", "Azaza", "321@ololo.ua");
+    }
+
     @Bean("Cart1")
     public ShoppingCart<Drinks> getShoppingCart1() {
         return new ShoppingCart<Drinks>();

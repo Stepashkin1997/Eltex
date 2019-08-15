@@ -5,6 +5,6 @@ import ru.eltex.app.java.lab2.ShoppingCart;
 
 import java.util.UUID;
 
-public interface ShoppingCartRepository extends JpaRepository<ShoppingCart, UUID> {
+public interface ShoppingCartRepository extends JpaRepository<ShoppingCart, String> {
 
 }

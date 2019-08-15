@@ -1,5 +1,7 @@
 package ru.eltex.app.java.lab2;
 
+import com.google.gson.annotations.Expose;
+
 import java.io.Serializable;
 import java.net.InetAddress;
 import java.sql.Date;
@@ -16,6 +18,7 @@ import java.util.Map;
  */
 public final class Orders<T extends Order> implements Serializable {
     private List<T> list;//Коллекция для хранения объектов в классе «заказы»
+    @Expose
     private Map<Date, T> createTime;//Коллекция для хранения объектов по времени создания
 
     public Orders() {
@@ -71,7 +74,7 @@ public final class Orders<T extends Order> implements Serializable {
         var iter = createTime.values().iterator();
         while (iter.hasNext()) {
             var item = iter.next();
-            if (id.equals(item.getOrder_id().toString())) {
+            if (id.equals(item.getId().toString())) {
                 return item;
             }
         }
@@ -163,7 +166,7 @@ public final class Orders<T extends Order> implements Serializable {
 
         while (iter.hasNext()) {
             var item = iter.next();
-            if (item.getOrder_id().toString().equals(id)) {
+            if (item.getId().toString().equals(id)) {
                 iter.remove();
                 list.remove(item);
                 return;

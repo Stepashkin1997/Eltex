@@ -1,5 +1,7 @@
 package ru.eltex.app.java.lab1;
 
+import ru.eltex.app.java.lab2.ShoppingCart;
+
 import javax.persistence.Entity;
 import java.io.IOException;
 import java.util.Scanner;
@@ -26,6 +28,11 @@ public final class Coffee extends Drinks {
      */
     public Coffee(String name, double coast, String company, String developer, String typecofee) {
         super(new StringBuilder(name), coast, new StringBuilder(company), new StringBuilder(developer));
+        this.typecofee = new StringBuilder(typecofee);
+    }
+
+    public Coffee(String name, double coast, String company, String developer, String typecofee, ShoppingCart<?> cart) {
+        super(new StringBuilder(name), coast, new StringBuilder(company), new StringBuilder(developer), cart);
         this.typecofee = new StringBuilder(typecofee);
     }
 

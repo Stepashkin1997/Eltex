@@ -12,7 +12,7 @@ public class DrinksService {
 
     public boolean addToCard(Drinks drinks) {
         try {
-            drinksRepository.save(drinks);
+            drinksRepository.saveAndFlush(drinks);
         } catch (Exception e) {
             return false;
         }

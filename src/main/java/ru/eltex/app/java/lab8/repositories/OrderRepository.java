@@ -7,5 +7,5 @@ import ru.eltex.app.java.lab2.Order;
 import java.util.UUID;
 
 @Repository
-public interface OrderRepository extends JpaRepository<Order, UUID> {
+public interface OrderRepository extends JpaRepository<Order, String> {
 }

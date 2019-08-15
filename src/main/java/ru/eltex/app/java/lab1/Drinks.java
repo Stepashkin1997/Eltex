@@ -1,5 +1,6 @@
 package ru.eltex.app.java.lab1;
 
+import com.google.gson.annotations.Expose;
 import ru.eltex.app.java.lab2.ShoppingCart;
 
 import javax.persistence.*;
@@ -13,13 +14,18 @@ import java.util.UUID;
 @Table(name = "Drinks")
 public abstract class Drinks implements ICrudAction, Serializable {
     @Id
+    @Expose
     private UUID id;//id товара
+    @Expose
     private StringBuilder name;//Название
+    @Expose
     private double coast;//Цена
+    @Expose
     private StringBuilder company;//Фирма поставщик
+    @Expose
     private StringBuilder developer;//Страна производитель
 
-    @ManyToOne(fetch = FetchType.LAZY, targetEntity = ShoppingCart.class)
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = ShoppingCart.class)
     @JoinColumn(name = "fk_id")
     private ShoppingCart<?> cart;//Агрегация ссылка на ShoppingCart
 
@@ -62,6 +68,16 @@ public abstract class Drinks implements ICrudAction, Serializable {
         this.coast = coast;
         this.company = company;
         this.developer = developer;
+        count++;
+    }
+
+    public Drinks(StringBuilder name, double coast, StringBuilder company, StringBuilder developer, ShoppingCart<?> cart) {
+        this.id = UUID.randomUUID();
+        this.name = name;
+        this.coast = coast;
+        this.company = company;
+        this.developer = developer;
+        this.cart = cart;
         count++;
     }
 

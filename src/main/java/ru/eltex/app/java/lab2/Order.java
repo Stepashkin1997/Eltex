@@ -1,5 +1,7 @@
 package ru.eltex.app.java.lab2;
 
+import com.google.gson.annotations.Expose;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.net.InetAddress;
@@ -13,29 +15,40 @@ import java.util.UUID;
 @Table(name = "`Order`")
 public class Order implements Serializable {
     @Id
-    private UUID id;//id для заказа
+    @Expose
+    private String id;//id для заказа
 
     @Enumerated(EnumType.STRING)
+    @Expose
     private OrderStatus status;//статус заказа
+
+    @Expose
     private Date ordertime;//время покупки
+
+    @Expose
     private long diff;//время ожидания
 
-    @ManyToOne(fetch = FetchType.LAZY, targetEntity = ShoppingCart.class)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_cart")
-    private ShoppingCart<?> cart;//Агрегация ссылка на ShoppingCart
+    @Expose
+    private ShoppingCart<?> cart = new ShoppingCart<>();//Агрегация ссылка на ShoppingCart
 
-    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Credentials.class)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_credentials")
-    private Credentials credentials;//Агрегация ссылка на Credentials
+    @Expose
+    private Credentials credentials = new Credentials();//Агрегация ссылка на Credentials
 
+    @Expose
     private InetAddress address;//Адресс отправителя заказа
+
+    @Expose
     private int port;//Порт отправителя заказа
 
     public Order() {
     }
 
     public Order(ShoppingCart<?> cart, Credentials credentials) {
-        this.id = UUID.randomUUID();
+        this.id = String.valueOf(UUID.randomUUID());
         this.status = OrderStatus.WAITING;
         this.cart = cart;
         this.credentials = credentials;
@@ -46,7 +59,7 @@ public class Order implements Serializable {
     }
 
     public Order(ShoppingCart<?> cart, Credentials credentials, InetAddress address, int port) {
-        this.id = UUID.randomUUID();
+        this.id = String.valueOf(UUID.randomUUID());
         this.status = OrderStatus.WAITING;
         this.cart = cart;
         this.credentials = credentials;
@@ -57,7 +70,7 @@ public class Order implements Serializable {
     }
 
     public Order(UUID id, OrderStatus status, Date ordertime, long diff, ShoppingCart<?> cart, Credentials credentials) {
-        this.id = id;
+        this.id = String.valueOf(id);
         this.status = status;
         this.ordertime = ordertime;
         this.diff = diff;
@@ -67,8 +80,12 @@ public class Order implements Serializable {
         this.port = 0;
     }
 
-    public UUID getOrder_id() {
-        return id;
+    public UUID getId() {
+        return UUID.fromString(id);
+    }
+
+    public void setId(UUID id) {
+        this.id = String.valueOf(id);
     }
 
     public OrderStatus getStatus() {
@@ -83,24 +100,48 @@ public class Order implements Serializable {
         return ordertime;
     }
 
+    public void setOrdertime(Date ordertime) {
+        this.ordertime = ordertime;
+    }
+
     public long getDiff() {
         return diff;
+    }
+
+    public void setDiff(long diff) {
+        this.diff = diff;
     }
 
     public ShoppingCart<?> getCart() {
         return cart;
     }
 
+    public void setCart(ShoppingCart<?> cart) {
+        this.cart = cart;
+    }
+
     public Credentials getCredentials() {
         return credentials;
+    }
+
+    public void setCredentials(Credentials credentials) {
+        this.credentials = credentials;
     }
 
     public InetAddress getAddress() {
         return address;
     }
 
+    public void setAddress(InetAddress address) {
+        this.address = address;
+    }
+
     public int getPort() {
         return port;
+    }
+
+    public void setPort(int port) {
+        this.port = port;
     }
 
     /**

@@ -7,5 +7,5 @@ import ru.eltex.app.java.lab1.Drinks;
 import java.util.UUID;
 
 @Repository
-public interface DrinksRepository extends JpaRepository<Drinks, UUID> {
+public interface DrinksRepository extends JpaRepository<Drinks, String> {
 }

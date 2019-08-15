@@ -1,5 +1,7 @@
 package ru.eltex.app.java.lab2;
 
+import com.google.gson.annotations.Expose;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.LinkedList;
@@ -15,18 +17,23 @@ public class Credentials implements Serializable {
 
     @Column(name = "cred_id")
     @Id
-    private UUID cred_id;//ID
+    @Expose
+    private String cred_id;//ID
 
     @Column(name = "name")
+    @Expose
     private StringBuilder name;//Имя
 
     @Column(name = "surname")
+    @Expose
     private StringBuilder surname;//Фамилия
 
     @Column(name = "thirdname")
+    @Expose
     private StringBuilder thirdname;//Отчетсво
 
     @Column(name = "email")
+    @Expose
     private StringBuilder email;//Почта
 
     @OneToMany(mappedBy = "credentials", targetEntity = Order.class)
@@ -36,7 +43,7 @@ public class Credentials implements Serializable {
     }
 
     public Credentials(StringBuilder name, StringBuilder surname, StringBuilder thirdname, StringBuilder email) {
-        this.cred_id = UUID.randomUUID();
+        this.cred_id = String.valueOf(UUID.randomUUID());
         this.name = name;
         this.surname = surname;
         this.thirdname = thirdname;
@@ -44,7 +51,7 @@ public class Credentials implements Serializable {
     }
 
     public Credentials(String name, String surname, String thirdname, String email) {
-        this.cred_id = UUID.randomUUID();
+        this.cred_id = String.valueOf(UUID.randomUUID());
         this.name = new StringBuilder(name);
         this.surname = new StringBuilder(surname);
         this.thirdname = new StringBuilder(thirdname);
@@ -52,11 +59,11 @@ public class Credentials implements Serializable {
     }
 
     public UUID getId() {
-        return cred_id;
+        return UUID.fromString(cred_id);
     }
 
     public void setId(UUID id) {
-        this.cred_id = id;
+        this.cred_id = String.valueOf(id);
     }
 
     public StringBuilder getName() {
