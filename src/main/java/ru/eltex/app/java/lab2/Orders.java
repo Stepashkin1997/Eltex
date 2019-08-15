@@ -74,7 +74,7 @@ public final class Orders<T extends Order> implements Serializable {
         var iter = createTime.values().iterator();
         while (iter.hasNext()) {
             var item = iter.next();
-            if (id.equals(item.getId().toString())) {
+            if (id.equals(item.OrdergetId().toString())) {
                 return item;
             }
         }
@@ -166,7 +166,7 @@ public final class Orders<T extends Order> implements Serializable {
 
         while (iter.hasNext()) {
             var item = iter.next();
-            if (item.getId().toString().equals(id)) {
+            if (item.OrdergetId().toString().equals(id)) {
                 iter.remove();
                 list.remove(item);
                 return;

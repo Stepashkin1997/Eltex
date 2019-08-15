@@ -38,7 +38,7 @@ public class Main {
        /*orderFile.saveAll(orders);
         Orders orders1 = orderFile.readAll();//чение заказов*/
         /*orderFile.saveById(order);
-        Order order1 = orderFile.readById(order.getId());//чение заказов
+        Order order1 = orderFile.readById(order.OrdergetId());//чение заказов
         order1.print();//показ*/
     }
 

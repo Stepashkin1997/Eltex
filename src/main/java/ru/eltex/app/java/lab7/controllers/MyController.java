@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.eltex.app.java.lab1.Coffee;
@@ -19,7 +18,6 @@ import ru.eltex.app.java.lab5.OrderDeserializer;
 import ru.eltex.app.java.lab5.OrdersDeserializer;
 import ru.eltex.app.java.lab5.OrdersSerializer;
 import ru.eltex.app.java.lab8.repositories.CredentialsRepository;
-import ru.eltex.app.java.lab8.repositories.OrderRepository;
 import ru.eltex.app.java.lab8.repositories.ShoppingCartRepository;
 import ru.eltex.app.java.lab8.services.DrinksService;
 import ru.eltex.app.java.lab8.services.OrderService;
@@ -30,7 +28,7 @@ public class MyController {
     private final Gson gson = new GsonBuilder().registerTypeAdapter(Order.class, new OrderDeserializer())
             .registerTypeAdapter(Orders.class, new OrdersSerializer())
             .registerTypeAdapter(Orders.class, new OrdersDeserializer())
-            .registerTypeAdapter(Drinks.class, new DrinksDeserializer()).excludeFieldsWithoutExposeAnnotation ()
+            .registerTypeAdapter(Drinks.class, new DrinksDeserializer()).excludeFieldsWithoutExposeAnnotation()
             .setPrettyPrinting().create();
 
     @Autowired
@@ -45,20 +43,29 @@ public class MyController {
     @GetMapping(params = "command=readall")
     public String readall() {
         logger.info("readall");
-        var A=orderService.readall();
+        var A = orderService.readall();
         return gson.toJson(A);
     }
 
     @GetMapping(params = "command=readById")
     public String readById(String order_id) {
         logger.info("readById");
-        return gson.toJson(orderService.readById(order_id));
+        var a = orderService.readById(order_id);
+        if (a == null) {
+            throw new NullPointerException();
+        }
+        return gson.toJson(a);
     }
 
     @GetMapping(params = "command=addToCard")
     public String addToCard(String card_id) {
         logger.info("addToCard");
+        var cart = shoppingCartRepository.findById(card_id).get();
+        if (cart == null) {
+            throw new NullPointerException();
+        }
         Drinks coffee = new Coffee();
+        coffee.setCart(cart);
         drinksService.addToCard(coffee);
         return coffee.getId().toString();
     }
@@ -95,11 +102,6 @@ public class MyController {
         drinksService.addToCard(new Tea("D", 654, "IBM", "Eltex", "Pacet", cartuser2));
 
         orderService.add(new Order(cartuser1, user1));
-        try {
-            Thread.sleep(10000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         orderService.add(new Order(cartuser2, user2));
 
         return "DONE";

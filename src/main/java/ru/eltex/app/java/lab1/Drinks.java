@@ -85,6 +85,9 @@ public abstract class Drinks implements ICrudAction, Serializable {
         return id;
     }
 
+    public void setCart(ShoppingCart<?> cart) {
+        this.cart = cart;
+    }
 
     /**
      * Заполнение объекта случайными значениями и инкремент счётчика

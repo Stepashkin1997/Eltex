@@ -1,6 +1,8 @@
 package ru.eltex.app.java.lab2;
 
 import com.google.gson.annotations.Expose;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -31,6 +33,7 @@ public class Order implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_cart")
     @Expose
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private ShoppingCart<?> cart = new ShoppingCart<>();//Агрегация ссылка на ShoppingCart
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -80,12 +83,12 @@ public class Order implements Serializable {
         this.port = 0;
     }
 
-    public UUID getId() {
+    public UUID OrdergetId() {
         return UUID.fromString(id);
     }
 
-    public void setId(UUID id) {
-        this.id = String.valueOf(id);
+    public String getId() {
+        return id;
     }
 
     public OrderStatus getStatus() {

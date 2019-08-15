@@ -1,6 +1,8 @@
 package ru.eltex.app.java.lab2;
 
 import com.google.gson.annotations.Expose;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.Type;
 import ru.eltex.app.java.lab1.Drinks;
 
@@ -23,12 +25,14 @@ public class ShoppingCart<T extends Drinks> implements Serializable {
     @Type(type = "ru.eltex.app.java.lab1.Drinks")
     @OneToMany(mappedBy = "cart", targetEntity = Drinks.class, fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @Expose
+    @OnDelete(action= OnDeleteAction.CASCADE)
     private List<T> list = new ArrayList();//Коллекция для хранения объектов в классе «корзина»
 
     @Transient
     private HashSet<UUID> setId;//Коллекция для хранения и поиска уникальных идентификаторов
 
     @OneToMany(mappedBy = "cart", targetEntity = Order.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OnDelete(action= OnDeleteAction.CASCADE)
     private List<Order> orders = new LinkedList();
 
     public ShoppingCart() {
